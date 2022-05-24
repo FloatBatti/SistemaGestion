@@ -145,7 +145,7 @@ public class Usuario {
         
     }
     
-    static public boolean registrarUsuario(Usuario userTextFields){
+    static public void registrarUsuario(Usuario userTextFields){
        
         PreparedStatement ps;
         
@@ -153,8 +153,7 @@ public class Usuario {
      
         try {
        
-            ps = GeneralConnection.getGeneralConnection().prepareStatement(query.toString());
-            
+            ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
             
             ps.setInt(1, userTextFields.getRolR().getIdRol());
             ps.setString(2, userTextFields.getDocumento());
@@ -164,35 +163,40 @@ public class Usuario {
             ps.setString(6, userTextFields.getClave());
             ps.setBoolean(7, userTextFields.isEstado());
            
-            if(revisionCampos(userTextFields)){
+            
+            if(usuarioRepetido(userTextFields)){
+                
+                JOptionPane.showMessageDialog(null, "El usuario ya existe.");
+            }
+            else if(revisionCampos(userTextFields) && userTextFields.getIdUsuario() == 0){
                 
                 ps.execute();
-                return true;
+                JOptionPane.showMessageDialog(null, "Registro Exitoso!");
             }
-            else{
+            else if(!(revisionCampos(userTextFields))){
                 
-                return false;
+                JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
             }
+           
                  
         } catch (SQLException e) {
             
             System.out.println(e.toString());
-            
-            return false;
+
         }
            
     }
     
-    static public boolean actualizarUsuario(Usuario userTextFields){
+    static public void actualizarUsuario(Usuario userTextFields){
         
         PreparedStatement ps;
         
         String query = "UPDATE USUARIO SET IdRol=?, Documento=?, NombreCompleto=?, Correo=?, Telefono=?, Clave=?, Estado=? WHERE IdUsuario=?";
      
         try {
-            ps = GeneralConnection.getGeneralConnection().prepareStatement(query.toString());
             
-            
+            ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
+                       
             ps.setInt(1, userTextFields.getRolR().getIdRol());
             ps.setString(2, userTextFields.getDocumento());
             ps.setString(3, userTextFields.getNombreCompleto());
@@ -202,40 +206,81 @@ public class Usuario {
             ps.setBoolean(7, userTextFields.isEstado());
             ps.setInt(8, userTextFields.getIdUsuario());
            
-            if(revisionCampos(userTextFields)){
+            if(revisionCampos(userTextFields) && userTextFields.getIdUsuario() > 0){
                 
                 ps.execute();
-                return true;
-            }
-            else{
+                JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
                 
-                return false;
+            }
+            else if(!(revisionCampos(userTextFields)) && userTextFields.getIdUsuario() > 0){
+                
+                JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente.");
+            }
+            else if(userTextFields.getIdUsuario() == 0){
+                
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario existente de la tabla.");
             }
                  
         } 
         catch (SQLException e) {
             
-            System.out.println(e.toString());
+            System.out.println(e.toString()); 
+        }
+        
+    }
+    
+    static public void eliminarUsuario(Usuario userTextFields){
+        
+        PreparedStatement ps;
+        
+        String query = "DELETE FROM USUARIO WHERE IdUsuario=?";
+     
+        try {
             
-            return false;
+            ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
+                       
+            ps.setInt(1, userTextFields.getIdUsuario());
+        
+           
+            if(userTextFields.getIdUsuario() > 0){
+                
+                ps.execute();
+                JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+                
+            }
+            else if(userTextFields.getIdUsuario() == 0){
+                
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario existente de la tabla.");
+            }
+                 
+        } 
+        catch (SQLException e) {
+            
+            System.out.println(e.toString()); 
         }
         
     }
 
     private static boolean revisionCampos(Usuario userRegis){
         
-        if (userRegis.getNombreCompleto().equals("") || userRegis.getDocumento().equals("") || userRegis.getCorreo().equals("") || userRegis.getTelefono().equals("") || userRegis.getClave().equals("")){
-            
-            JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
-            return false;
-        }
-        else{
-            
-            return true;
-        }
+        return !(userRegis.getNombreCompleto().equals("") || userRegis.getDocumento().equals("") || userRegis.getCorreo().equals("") || userRegis.getTelefono().equals("") || userRegis.getClave().equals(""));
         
     }
-    
+      
+    static private boolean usuarioRepetido(Usuario userRegis){
+        
+        List<Usuario> listaUsuarios = listarUsuarios();
+        
+        for (Usuario aux : listaUsuarios){
+            
+            if (aux.getDocumento().equals(userRegis.getDocumento()) || aux.getCorreo().equals(userRegis.getCorreo()) || userRegis.getIdUsuario() > 0){
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     @Override
     public String toString() {

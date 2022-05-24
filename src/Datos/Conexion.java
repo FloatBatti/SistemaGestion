@@ -46,36 +46,6 @@ public class Conexion {
         }
     }
 
-    public int ejercutarSentenciaSQL (String strSentenciaSQL){
-
-        try{
-            PreparedStatement  pstm = cx.prepareStatement(strSentenciaSQL);
-            pstm.execute();
-            return 1 ;
-        }catch (SQLException e){
-            System.out.println(e);
-            return 0 ;
-        }
-
-    }
-
-
-    public ResultSet consultarRegistros (String strSentencianSQL){
-
-            try{
-                PreparedStatement pstm = cx.prepareStatement(strSentencianSQL);
-                ResultSet respuesta = pstm.executeQuery();
-
-                return respuesta ;
-
-            }catch (Exception e){
-                System.out.println(e);
-                return null ;
-            }
-
-    }
-    
-
     public static void main(String[] args) {
         Conexion conexion= new Conexion();
         conexion.conectar();

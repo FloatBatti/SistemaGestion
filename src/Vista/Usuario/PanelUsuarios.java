@@ -4,22 +4,16 @@
  */
 package Vista.Usuario;
 
-import Datos.Conexion;
+import Datos.GeneralConnection;
 import Entidades.Rol;
 import Entidades.Usuario;
-import Vista.General.AvisoCarga;
-import Vista.General.Login;
-import Vista.General.Presentacion;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.lang.*;
 
 /**
  *
@@ -30,6 +24,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     
     public PanelUsuarios() {
         initComponents();
+        GeneralConnection.firewallConnection();
         llenarTableUsuario();
         TablaUsuarios.addMouseListener(new MouseAdapter(){
             
@@ -55,6 +50,8 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     }
 
     private void llenarTableUsuario(){
+        
+        limpiarTabla();
         
         List<Usuario> listaUsuarios = Usuario.listarUsuarios();
         List<Rol> listaRoles = Rol.listarRoles();
@@ -85,6 +82,18 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         }
         
     }
+    
+    private void limpiarTabla(){
+        
+        DefaultTableModel modelo = (DefaultTableModel) TablaUsuarios.getModel();
+        
+        for( int i = modelo.getRowCount() - 1; i >= 0; i-- ) {
+            modelo.removeRow(i);
+        }
+        
+        
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -122,6 +131,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         PanelLimpiar = new javax.swing.JPanel();
         BotonLimpiar = new javax.swing.JLabel();
         IdUsuerTxt = new javax.swing.JTextField();
+        CheckConfirmar = new javax.swing.JCheckBox();
 
         PanelGeneral.setBackground(new java.awt.Color(255, 255, 255));
         PanelGeneral.setPreferredSize(new java.awt.Dimension(850, 590));
@@ -299,6 +309,11 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         BotonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
         BotonEliminar.setText("Eliminar");
         BotonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonEliminarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelEliminarLayout = new javax.swing.GroupLayout(PanelEliminar);
         PanelEliminar.setLayout(PanelEliminarLayout);
@@ -340,7 +355,12 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
 
         IdUsuerTxt.setEditable(false);
         IdUsuerTxt.setBackground(new java.awt.Color(255, 255, 255));
+        IdUsuerTxt.setForeground(new java.awt.Color(255, 255, 255));
         IdUsuerTxt.setBorder(null);
+
+        CheckConfirmar.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        CheckConfirmar.setForeground(new java.awt.Color(0, 0, 0));
+        CheckConfirmar.setText("Confirmar");
 
         javax.swing.GroupLayout PanelGeneralLayout = new javax.swing.GroupLayout(PanelGeneral);
         PanelGeneral.setLayout(PanelGeneralLayout);
@@ -350,9 +370,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                 .addGap(17, 17, 17)
                 .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
-                        .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(EstadoTitle)
-                            .addComponent(EstadoComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(EstadoComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,13 +401,18 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                         .addComponent(PanelActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(PanelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(149, 149, 149))
+                        .addGap(141, 141, 141))
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ClaveTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelGeneralLayout.createSequentialGroup()
+                        .addComponent(EstadoTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CheckConfirmar)
+                        .addGap(278, 278, 278))))
             .addGroup(PanelGeneralLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,7 +468,9 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                     .addComponent(PanelActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PanelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(EstadoTitle)
+                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EstadoTitle)
+                    .addComponent(CheckConfirmar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EstadoComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -472,48 +497,87 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
-        
-        if(Usuario.registrarUsuario(userTextFields())){
-            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+            
+        if(CheckConfirmar.isSelected()){
+            
+            Usuario.registrarUsuario(userTextFields());
+            GeneralConnection.firewallConnection();
+            llenarTableUsuario();
+            CheckConfirmar.setSelected(false);
         }
         else{
             
-            JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
+            JOptionPane.showMessageDialog(null, "Debe confirmar para crear el usuario");
         }
+        
         
     }//GEN-LAST:event_BotonCrearMouseClicked
 
     private void BotonLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLimpiarMouseClicked
-        
-        NombreTxt.setText("");
-        DocumentoTxt.setText("");
-        CorreoTxt.setText("");
-        TelefonoTxt.setText("");
-        ClaveTxt.setText("");            
+ 
+        limpiarFields();
     }//GEN-LAST:event_BotonLimpiarMouseClicked
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
          
-        if(Usuario.actualizarUsuario(userTextFields())){
-            JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
+        if(CheckConfirmar.isSelected()){
+            
+            Usuario.actualizarUsuario(userTextFields());
+            GeneralConnection.firewallConnection();
+            llenarTableUsuario();
+            CheckConfirmar.setSelected(false);
         }
         else{
             
-            JOptionPane.showMessageDialog(null, "No se pudo actualizar el usuario.");
-            JOptionPane.showMessageDialog(null, "Se desconecto de la base de datos, reinicie el programa. Si el error persiste, intente actualizar no mas de 3 caracteristicas a la vez.");
+            JOptionPane.showMessageDialog(null, "Debe confirmar para actualizar el usuario");
         }
-        
         
     }//GEN-LAST:event_BotonActualizarMouseClicked
 
+    private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
+        
+        if(CheckConfirmar.isSelected()){
+            
+            Usuario.eliminarUsuario(userTextFields());
+            GeneralConnection.firewallConnection();
+            limpiarFields();
+            llenarTableUsuario();
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null, "Debe confirmar para eliminar el usuario");
+        }
+        
+        
+    }//GEN-LAST:event_BotonEliminarMouseClicked
+
+    private void limpiarFields(){
+        
+        IdUsuerTxt.setText("");
+        NombreTxt.setText("");
+        DocumentoTxt.setText("");
+        CorreoTxt.setText("");
+        TelefonoTxt.setText("");
+        ClaveTxt.setText("");
+        RolComBox.setSelectedItem("Ventas");
+        EstadoComBox.setSelectedItem("Activo");
+        CheckConfirmar.setSelected(false);
+    }
+    
     private Usuario userTextFields(){
         
         Usuario auxUser = new Usuario();
         Rol auxRol = new Rol();
         List<Rol> listaRoles = Rol.listarRoles();
         
+        if (IdUsuerTxt.getText().equals("") == false){
+           
+           auxUser.setIdUsuario(Integer.parseInt(IdUsuerTxt.getText()));
+        }
+        else{
+            auxUser.setIdUsuario(0);
+        }
         
-        auxUser.setIdUsuario(Integer.parseInt(IdUsuerTxt.getText()));
         auxUser.setNombreCompleto(NombreTxt.getText());
         auxUser.setDocumento(DocumentoTxt.getText());
         auxUser.setCorreo(CorreoTxt.getText());
@@ -531,8 +595,9 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         }
         
         auxUser.setRolR(auxRol);
-        auxUser.setEstado(EstadoComBox.getSelectedItem().equals("Activo")? true : false);
+        auxUser.setEstado(EstadoComBox.getSelectedItem().equals("Activo"));
       
+        
         return auxUser;
     }
 
@@ -542,6 +607,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     private javax.swing.JLabel BotonCrear;
     private javax.swing.JLabel BotonEliminar;
     private javax.swing.JLabel BotonLimpiar;
+    private javax.swing.JCheckBox CheckConfirmar;
     private javax.swing.JLabel ClaveTitle;
     private javax.swing.JTextField ClaveTxt;
     private javax.swing.JLabel CorreoTitle;

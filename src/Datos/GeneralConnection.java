@@ -5,6 +5,7 @@
 package Datos;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 
 public class GeneralConnection {
@@ -22,5 +23,23 @@ public class GeneralConnection {
         GeneralConnection.generalConnection = generalConnection;
     }
     
-    
+    static public void firewallConnection(){
+        
+        try {
+            
+            if(GeneralConnection.getGeneralConnection().isClosed()){
+                JOptionPane.showMessageDialog(null, "Se perdio la conexion con la base de datos, intente nuevamente");
+                GeneralConnection.setGeneralConnection(new Conexion().conectar());
+            }
+            
+        } catch (com.mysql.cj.jdbc.exceptions.CommunicationsException e) {
+               
+            System.out.println(e);
+            
+        }catch (Exception ex) {
+            
+            System.out.println(ex);
+        }
+        
+    }
 }
