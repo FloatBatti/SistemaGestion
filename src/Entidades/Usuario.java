@@ -145,7 +145,7 @@ public class Usuario {
         
     }
     
-    static public void registrarUsuario(Usuario userTextFields){
+    static public boolean  registrarUsuario(Usuario userTextFields){
        
         PreparedStatement ps;
         
@@ -166,28 +166,32 @@ public class Usuario {
             
             if(usuarioRepetido(userTextFields)){
                 
-                JOptionPane.showMessageDialog(null, "El usuario ya existe.");
+                JOptionPane.showMessageDialog(null, "El usuario ya existe. Limpie los campos");
+                return false;
             }
             else if(revisionCampos(userTextFields) && userTextFields.getIdUsuario() == 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+                return true;
             }
             else if(!(revisionCampos(userTextFields))){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
+                return false;
             }
-           
-                 
+                    
         } catch (SQLException e) {
             
             System.out.println(e.toString());
+            
 
         }
-           
+         
+       return false;
     }
     
-    static public void actualizarUsuario(Usuario userTextFields){
+    static public boolean actualizarUsuario(Usuario userTextFields){
         
         PreparedStatement ps;
         
@@ -210,15 +214,18 @@ public class Usuario {
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
+                return true;
                 
             }
             else if(!(revisionCampos(userTextFields)) && userTextFields.getIdUsuario() > 0){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente.");
+                return false;
             }
             else if(userTextFields.getIdUsuario() == 0){
                 
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario existente de la tabla.");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario de la tabla.");
+                return false;
             }
                  
         } 
@@ -227,9 +234,10 @@ public class Usuario {
             System.out.println(e.toString()); 
         }
         
+        return false;
     }
     
-    static public void eliminarUsuario(Usuario userTextFields){
+    static public boolean  eliminarUsuario(Usuario userTextFields){
         
         PreparedStatement ps;
         
@@ -246,11 +254,13 @@ public class Usuario {
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+                return true;
                 
             }
             else if(userTextFields.getIdUsuario() == 0){
                 
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario existente de la tabla.");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario de la tabla.");
+                return false;
             }
                  
         } 
@@ -259,6 +269,7 @@ public class Usuario {
             System.out.println(e.toString()); 
         }
         
+        return false;
     }
 
     private static boolean revisionCampos(Usuario userRegis){

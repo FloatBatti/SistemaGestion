@@ -5,6 +5,7 @@
 package Vista.General;
 
 import Datos.Conexion;
+import Datos.GeneralConnection;
 import java.awt.Color;
 import Entidades.*;
 import Vista.Usuario.PanelUsuarios;
@@ -657,6 +658,8 @@ public class Presentacion extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuReportesMouseExited
     //</editor-fold>
     private void ManuUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManuUsuariosMouseClicked
+        
+        GeneralConnection.firewallConnection();
         
         PanelUsuarios pestañaUsuarios = new PanelUsuarios();
         

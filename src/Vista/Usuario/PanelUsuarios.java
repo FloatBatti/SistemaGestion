@@ -498,12 +498,15 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
             
+        GeneralConnection.firewallConnection();
+        
         if(CheckConfirmar.isSelected()){
             
-            Usuario.registrarUsuario(userTextFields());
-            GeneralConnection.firewallConnection();
-            llenarTableUsuario();
-            CheckConfirmar.setSelected(false);
+            if(Usuario.registrarUsuario(userTextFields())){
+               
+                 llenarTableUsuario();
+                 limpiarFields();
+            }
         }
         else{
             
@@ -514,18 +517,21 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     }//GEN-LAST:event_BotonCrearMouseClicked
 
     private void BotonLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLimpiarMouseClicked
- 
+
         limpiarFields();
     }//GEN-LAST:event_BotonLimpiarMouseClicked
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
          
+        GeneralConnection.firewallConnection();
+        
         if(CheckConfirmar.isSelected()){
             
-            Usuario.actualizarUsuario(userTextFields());
-            GeneralConnection.firewallConnection();
-            llenarTableUsuario();
-            CheckConfirmar.setSelected(false);
+            if(Usuario.actualizarUsuario(userTextFields())){
+               
+                 llenarTableUsuario();
+                 limpiarFields();
+            }
         }
         else{
             
@@ -536,12 +542,15 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
         
+        GeneralConnection.firewallConnection();
+             
         if(CheckConfirmar.isSelected()){
             
-            Usuario.eliminarUsuario(userTextFields());
-            GeneralConnection.firewallConnection();
-            limpiarFields();
-            llenarTableUsuario();
+            if(Usuario.eliminarUsuario(userTextFields())){
+               
+                 llenarTableUsuario();
+                 limpiarFields();
+            }
         }
         else{
             
@@ -570,7 +579,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         Rol auxRol = new Rol();
         List<Rol> listaRoles = Rol.listarRoles();
         
-        if (IdUsuerTxt.getText().equals("") == false){
+        if (!(IdUsuerTxt.getText().equals(""))){
            
            auxUser.setIdUsuario(Integer.parseInt(IdUsuerTxt.getText()));
         }
