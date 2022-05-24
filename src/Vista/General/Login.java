@@ -379,7 +379,7 @@ public class Login extends javax.swing.JFrame implements Runnable {
                 
                 Login login = new Login();
                 login.setVisible(true);
-                
+
             }
         });
     }

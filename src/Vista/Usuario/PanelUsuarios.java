@@ -10,11 +10,16 @@ import Entidades.Usuario;
 import Vista.General.AvisoCarga;
 import Vista.General.Login;
 import Vista.General.Presentacion;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.lang.*;
 
 /**
  *
@@ -26,6 +31,26 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     public PanelUsuarios() {
         initComponents();
         llenarTableUsuario();
+        TablaUsuarios.addMouseListener(new MouseAdapter(){
+            
+            public void mousePressed(MouseEvent Mouse_evt){
+                
+                JTable table = (JTable) Mouse_evt.getSource();
+                Point point = Mouse_evt.getPoint();
+                int row = table.rowAtPoint(point);
+                if (Mouse_evt.getClickCount() == 1){
+                    
+                    IdUsuerTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 0));
+                    NombreTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 1));
+                    DocumentoTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 2));
+                    CorreoTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 3));
+                    TelefonoTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 4));
+                    ClaveTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 5));
+                    RolComBox.setSelectedItem(TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 6));
+                    EstadoComBox.setSelectedItem(TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 7));
+                }
+            }
+        });
         
     }
 
@@ -36,7 +61,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         
         DefaultTableModel modelo = (DefaultTableModel) TablaUsuarios.getModel();
         
-        String [] datos = new String[7];
+        String [] datos = new String[8];
         
         for(Rol aux : listaRoles){
             
@@ -46,14 +71,15 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         RolComBox.setSelectedItem(listaRoles.get(0));
   
         for (Usuario aux : listaUsuarios){
-            
-            datos[0] = aux.getNombreCompleto();
-            datos[1] = aux.getDocumento();
-            datos[2] = aux.getCorreo();
-            datos[3] = aux.getTelefono();
-            datos[4] = aux.getClave();
-            datos[5] = aux.getRolR().getDescripcion();
-            datos[6] = (aux.isEstado()) ? "Activo" : "No Activo";
+           
+            datos[0] = Integer.toString(aux.getIdUsuario());
+            datos[1] = aux.getNombreCompleto();
+            datos[2] = aux.getDocumento();
+            datos[3] = aux.getCorreo();
+            datos[4] = aux.getTelefono();
+            datos[5] = aux.getClave();
+            datos[6] = aux.getRolR().getDescripcion();
+            datos[7] = (aux.isEstado()) ? "Activo" : "No Activo";
          
             modelo.addRow(datos);
         }
@@ -93,6 +119,9 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         BotonActualizar = new javax.swing.JLabel();
         PanelEliminar = new javax.swing.JPanel();
         BotonEliminar = new javax.swing.JLabel();
+        PanelLimpiar = new javax.swing.JPanel();
+        BotonLimpiar = new javax.swing.JLabel();
+        IdUsuerTxt = new javax.swing.JTextField();
 
         PanelGeneral.setBackground(new java.awt.Color(255, 255, 255));
         PanelGeneral.setPreferredSize(new java.awt.Dimension(850, 590));
@@ -102,14 +131,14 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
 
             },
             new String [] {
-                "Nombre Completo", "Documento", "Correo", "Telefono", "Clave", "Rol", "Estado"
+                "ID", "Nombre Completo", "Documento", "Correo", "Telefono", "Clave", "Rol", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -122,9 +151,11 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         });
         AreaTabla.setViewportView(TablaUsuarios);
         if (TablaUsuarios.getColumnModel().getColumnCount() > 0) {
-            TablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(130);
-            TablaUsuarios.getColumnModel().getColumn(2).setPreferredWidth(130);
-            TablaUsuarios.getColumnModel().getColumn(4).setPreferredWidth(50);
+            TablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(20);
+            TablaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(130);
+            TablaUsuarios.getColumnModel().getColumn(3).setPreferredWidth(125);
+            TablaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(50);
+            TablaUsuarios.getColumnModel().getColumn(7).setPreferredWidth(50);
         }
 
         jLabel2.setFont(new java.awt.Font("Roboto Light", 1, 18)); // NOI18N
@@ -238,6 +269,11 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         BotonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Actualziar.png"))); // NOI18N
         BotonActualizar.setText("Actualizar");
         BotonActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonActualizarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelActualizarLayout = new javax.swing.GroupLayout(PanelActualizar);
         PanelActualizar.setLayout(PanelActualizarLayout);
@@ -275,6 +311,37 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
             .addComponent(BotonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
+        PanelLimpiar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelLimpiar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelLimpiar.setForeground(new java.awt.Color(0, 0, 0));
+        PanelLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        BotonLimpiar.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        BotonLimpiar.setForeground(new java.awt.Color(0, 0, 0));
+        BotonLimpiar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BotonLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpiar.png"))); // NOI18N
+        BotonLimpiar.setText("Limpiar");
+        BotonLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonLimpiarMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelLimpiarLayout = new javax.swing.GroupLayout(PanelLimpiar);
+        PanelLimpiar.setLayout(PanelLimpiarLayout);
+        PanelLimpiarLayout.setHorizontalGroup(
+            PanelLimpiarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BotonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+        );
+        PanelLimpiarLayout.setVerticalGroup(
+            PanelLimpiarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BotonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        IdUsuerTxt.setEditable(false);
+        IdUsuerTxt.setBackground(new java.awt.Color(255, 255, 255));
+        IdUsuerTxt.setBorder(null);
+
         javax.swing.GroupLayout PanelGeneralLayout = new javax.swing.GroupLayout(PanelGeneral);
         PanelGeneral.setLayout(PanelGeneralLayout);
         PanelGeneralLayout.setHorizontalGroup(
@@ -301,7 +368,8 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                             .addComponent(TelefonoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TelefonoTitle)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ClaveTitle))
+                            .addComponent(ClaveTitle)
+                            .addComponent(IdUsuerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(AreaTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))
@@ -322,6 +390,10 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                             .addComponent(ClaveTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(PanelGeneralLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelGeneralLayout.setVerticalGroup(
             PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,8 +401,10 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
+                        .addComponent(IdUsuerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(NombreTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(NombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +448,9 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
                 .addComponent(EstadoTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EstadoComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137))
+                .addGap(26, 26, 26)
+                .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -397,16 +473,47 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
         
-        Usuario.registrarUsuarios(crearUsuario());
+        if(Usuario.registrarUsuario(userTextFields())){
+            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null, "No se pudo registrar el usuario.");
+        }
+        
     }//GEN-LAST:event_BotonCrearMouseClicked
 
-    private Usuario crearUsuario(){
+    private void BotonLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLimpiarMouseClicked
+        
+        NombreTxt.setText("");
+        DocumentoTxt.setText("");
+        CorreoTxt.setText("");
+        TelefonoTxt.setText("");
+        ClaveTxt.setText("");            
+    }//GEN-LAST:event_BotonLimpiarMouseClicked
+
+    private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
+         
+        if(Usuario.actualizarUsuario(userTextFields())){
+            JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar el usuario.");
+            JOptionPane.showMessageDialog(null, "Se desconecto de la base de datos, reinicie el programa. Si el error persiste, intente actualizar no mas de 3 caracteristicas a la vez.");
+        }
+        
+        
+    }//GEN-LAST:event_BotonActualizarMouseClicked
+
+    private Usuario userTextFields(){
         
         Usuario auxUser = new Usuario();
         Rol auxRol = new Rol();
-        List<Rol> listaRoles = new ArrayList();
-        int cont = RolComBox.getItemCount();
+        List<Rol> listaRoles = Rol.listarRoles();
         
+        
+        auxUser.setIdUsuario(Integer.parseInt(IdUsuerTxt.getText()));
         auxUser.setNombreCompleto(NombreTxt.getText());
         auxUser.setDocumento(DocumentoTxt.getText());
         auxUser.setCorreo(CorreoTxt.getText());
@@ -415,7 +522,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         
         for (Rol aux : listaRoles){
             
-             if (RolComBox.getSelectedItem().equals(aux.getDescripcion())){
+            if (RolComBox.getSelectedItem().equals(aux.getDescripcion())){
                     
                     auxRol.setIdRol(aux.getIdRol());
                     auxRol.setDescripcion(aux.getDescripcion());
@@ -424,6 +531,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
         }
         
         auxUser.setRolR(auxRol);
+        auxUser.setEstado(EstadoComBox.getSelectedItem().equals("Activo")? true : false);
       
         return auxUser;
     }
@@ -433,6 +541,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     private javax.swing.JLabel BotonActualizar;
     private javax.swing.JLabel BotonCrear;
     private javax.swing.JLabel BotonEliminar;
+    private javax.swing.JLabel BotonLimpiar;
     private javax.swing.JLabel ClaveTitle;
     private javax.swing.JTextField ClaveTxt;
     private javax.swing.JLabel CorreoTitle;
@@ -441,12 +550,14 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     private javax.swing.JTextField DocumentoTxt;
     private javax.swing.JComboBox<String> EstadoComBox;
     private javax.swing.JLabel EstadoTitle;
+    private javax.swing.JTextField IdUsuerTxt;
     private javax.swing.JLabel NombreTitle;
     private javax.swing.JTextField NombreTxt;
     private javax.swing.JPanel PanelActualizar;
     private javax.swing.JPanel PanelCrear;
     private javax.swing.JPanel PanelEliminar;
     private javax.swing.JPanel PanelGeneral;
+    private javax.swing.JPanel PanelLimpiar;
     private javax.swing.JComboBox<String> RolComBox;
     private javax.swing.JLabel RolTitle;
     private javax.swing.JTable TablaUsuarios;
@@ -463,7 +574,7 @@ public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
     @Override
     public void run() {
         
-        AvisoCarga espere = new AvisoCarga();
+        
         
     }
 }

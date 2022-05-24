@@ -71,6 +71,13 @@ public class Rol{
         return listaRoles; 
         
     }
+
+    @Override
+    public String toString() {
+        return "Rol{" + "IdRol=" + IdRol + ", Descripcion=" + Descripcion + '}';
+    }
+    
+    
 }
     
    

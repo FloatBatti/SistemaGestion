@@ -11,6 +11,7 @@ import Vista.General.Presentacion;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -144,36 +145,102 @@ public class Usuario {
         
     }
     
-    static public void registrarUsuarios(Usuario usuarioCreado){
+    static public boolean registrarUsuario(Usuario userTextFields){
        
         PreparedStatement ps;
-        ResultSet rs;
         
-        String query = "INSERT INTO USUARIO (IdRol, Documento, NombreCompleto, Correo, Telefono, Clave, Estado)";
-        
+        String query = "INSERT INTO USUARIO (IdRol, Documento, NombreCompleto, Correo, Telefono, Clave, Estado) VALUES(?,?,?,?,?,?,?)";
+     
         try {
        
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query.toString());
             
             
-            //ps.setString(1, );
+            ps.setInt(1, userTextFields.getRolR().getIdRol());
+            ps.setString(2, userTextFields.getDocumento());
+            ps.setString(3, userTextFields.getNombreCompleto());
+            ps.setString(4, userTextFields.getCorreo());
+            ps.setString(5, userTextFields.getTelefono());
+            ps.setString(6, userTextFields.getClave());
+            ps.setBoolean(7, userTextFields.isEstado());
            
-            rs = ps.executeQuery();    
-            
-            
-            
+            if(revisionCampos(userTextFields)){
+                
+                ps.execute();
+                return true;
+            }
+            else{
+                
+                return false;
+            }
+                 
         } catch (SQLException e) {
             
             System.out.println(e.toString());
+            
+            return false;
+        }
+           
+    }
+    
+    static public boolean actualizarUsuario(Usuario userTextFields){
+        
+        PreparedStatement ps;
+        
+        String query = "UPDATE USUARIO SET IdRol=?, Documento=?, NombreCompleto=?, Correo=?, Telefono=?, Clave=?, Estado=? WHERE IdUsuario=?";
+     
+        try {
+            ps = GeneralConnection.getGeneralConnection().prepareStatement(query.toString());
+            
+            
+            ps.setInt(1, userTextFields.getRolR().getIdRol());
+            ps.setString(2, userTextFields.getDocumento());
+            ps.setString(3, userTextFields.getNombreCompleto());
+            ps.setString(4, userTextFields.getCorreo());
+            ps.setString(5, userTextFields.getTelefono());
+            ps.setString(6, userTextFields.getClave());
+            ps.setBoolean(7, userTextFields.isEstado());
+            ps.setInt(8, userTextFields.getIdUsuario());
+           
+            if(revisionCampos(userTextFields)){
+                
+                ps.execute();
+                return true;
+            }
+            else{
+                
+                return false;
+            }
+                 
+        } 
+        catch (SQLException e) {
+            
+            System.out.println(e.toString());
+            
+            return false;
         }
         
-
     }
 
+    private static boolean revisionCampos(Usuario userRegis){
+        
+        if (userRegis.getNombreCompleto().equals("") || userRegis.getDocumento().equals("") || userRegis.getCorreo().equals("") || userRegis.getTelefono().equals("") || userRegis.getClave().equals("")){
+            
+            JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
+            return false;
+        }
+        else{
+            
+            return true;
+        }
+        
+    }
+    
+    
     @Override
     public String toString() {
-        return "Usuario{" + "IdUsuario=" + IdUsuario + ", IdRolR=" + RolR + ", Documento=" + Documento + ", NombreCompleto=" + NombreCompleto + ", Correo=" + Correo + ", Telefono=" + Telefono + ", Clave=" + Clave + ", Estado=" + Estado + ", FechaCreacion=" + '}';
+        return "Usuario{" + "IdUsuario=" + IdUsuario + ", IdRolR=" + RolR + ", Documento=" + Documento + ", NombreCompleto=" + NombreCompleto + ", Correo=" + Correo + ", Telefono=" + Telefono + ", Clave=" + Clave + ", Estado=" + Estado +'}';
     }
     
-    
+   
 }
