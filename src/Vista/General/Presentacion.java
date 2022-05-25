@@ -8,12 +8,11 @@ import Datos.Conexion;
 import Datos.GeneralConnection;
 import java.awt.Color;
 import Entidades.*;
+import java.util.*;
 import Vista.Usuario.PanelUsuarios;
 import java.sql.*;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.*;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 
@@ -21,11 +20,29 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
 public class Presentacion extends javax.swing.JFrame {
 
     private int xMouse, yMouse;
+    private Timer timer = new Timer();
+    private TimerTask nueva = new TimerTask() {
+        @Override
+        public void run() {
+             
+            PreparedStatement ps;
+            String query = "SELECT * FROM CONEXION";
+            try {
+                    ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
+                    ps.executeQuery(query);
+                    System.out.println("hola");
+                    
+            } catch (Exception e) {
+            }
+            
+        }
+    };
+    
     
     public Presentacion(){
         initComponents();
         this.setLocationRelativeTo(null);
-
+        timer.schedule(nueva, 0, 10000);
     }
 
    
@@ -657,6 +674,7 @@ public class Presentacion extends javax.swing.JFrame {
         AreaReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(31,116,116)));
     }//GEN-LAST:event_MenuReportesMouseExited
     //</editor-fold>
+    
     private void ManuUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManuUsuariosMouseClicked
         
         GeneralConnection.firewallConnection();

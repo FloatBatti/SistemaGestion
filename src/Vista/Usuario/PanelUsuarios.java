@@ -15,10 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author AgusGonza
- */
 public class PanelUsuarios extends javax.swing.JPanel implements Runnable{
 
     
