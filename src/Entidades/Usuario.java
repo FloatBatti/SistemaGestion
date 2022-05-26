@@ -7,7 +7,6 @@ package Entidades;
 import java.util.ArrayList;
 import java.util.List;
 import Datos.*;
-import Vista.General.Presentacion;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;

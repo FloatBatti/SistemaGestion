@@ -25,9 +25,9 @@ public class Conexion {
         try {
             Class.forName(driver);
             cx = DriverManager.getConnection(url + db, user, password);
-            System.out.println("Conectado a la base de datos");
+            //System.out.println("Conectado a la base de datos");
         } catch (ClassNotFoundException |SQLException ex) {
-            System.out.println("Error al conectar a la base de datos");
+            //System.out.println("Error al conectar a la base de datos");
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
 
         }
