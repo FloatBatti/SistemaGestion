@@ -9,6 +9,7 @@ import Datos.GeneralConnection;
 import java.awt.Color;
 import Entidades.*;
 import Paneles.ModuloUsuario;
+import Paneles.ModuloInventario;
 import java.util.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -49,7 +50,7 @@ public class Presentacion extends javax.swing.JFrame {
     static public void setUsuarioActual(Usuario actualUser){
         
         usuarioActual = actualUser;
-        ActualUserTxt.setText(actualUser.getNombreCompleto());
+        ActualUserTxt.setText("Usuario actual: " + actualUser.getNombreCompleto());
     }
     
 
@@ -59,9 +60,7 @@ public class Presentacion extends javax.swing.JFrame {
 
         PanelGeneral = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
-        jSeparator2 = new javax.swing.JSeparator();
         TituloSistema = new javax.swing.JLabel();
-        ActualUser = new javax.swing.JLabel();
         ActualUserTxt = new javax.swing.JLabel();
         AreaUsuario = new javax.swing.JPanel();
         ManuUsuarios = new javax.swing.JLabel();
@@ -83,7 +82,7 @@ public class Presentacion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        PanelGeneral.setBackground(new java.awt.Color(0, 102, 102));
+        PanelGeneral.setBackground(new java.awt.Color(255, 255, 255));
         PanelGeneral.setName(""); // NOI18N
         PanelGeneral.setPreferredSize(new java.awt.Dimension(770, 542));
         PanelGeneral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -99,17 +98,12 @@ public class Presentacion extends javax.swing.JFrame {
             }
         });
 
-        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
-
         TituloSistema.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         TituloSistema.setForeground(new java.awt.Color(255, 255, 255));
         TituloSistema.setText("Bienvenido al sistema de Gestion DePez");
 
-        ActualUser.setForeground(new java.awt.Color(255, 255, 255));
-        ActualUser.setText("Usuario Actual:");
-
         ActualUserTxt.setForeground(new java.awt.Color(255, 255, 255));
-        ActualUserTxt.setText("Default");
+        ActualUserTxt.setText("Usuario actual : Default");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -119,33 +113,23 @@ public class Presentacion extends javax.swing.JFrame {
                 .addContainerGap(176, Short.MAX_VALUE)
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
-                        .addComponent(ActualUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ActualUserTxt)
-                        .addGap(313, 313, 313))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
                         .addComponent(TituloSistema)
-                        .addGap(130, 130, 130))))
-            .addGroup(HeaderLayout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(130, 130, 130))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
+                        .addComponent(ActualUserTxt)
+                        .addGap(313, 313, 313))))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(TituloSistema)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ActualUser)
-                    .addComponent(ActualUserTxt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(ActualUserTxt)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        PanelGeneral.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 770, 100));
+        PanelGeneral.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 100));
 
         AreaUsuario.setBackground(new java.awt.Color(31, 116, 116));
         AreaUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -183,7 +167,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(ManuUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
+        PanelGeneral.add(AreaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
 
         AreaInventario.setBackground(new java.awt.Color(31, 116, 116));
         AreaInventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -207,6 +191,9 @@ public class Presentacion extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 MenuInventarioMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuInventarioMousePressed(evt);
+            }
         });
 
         javax.swing.GroupLayout AreaInventarioLayout = new javax.swing.GroupLayout(AreaInventario);
@@ -220,7 +207,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuInventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
+        PanelGeneral.add(AreaInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
 
         AreaClientes.setBackground(new java.awt.Color(31, 116, 116));
         AreaClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -256,7 +243,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 110, -1));
+        PanelGeneral.add(AreaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 110, -1));
 
         AreaProveedores.setBackground(new java.awt.Color(31, 116, 116));
         AreaProveedores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -292,7 +279,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, -1, -1));
+        PanelGeneral.add(AreaProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
 
         AreaCompras.setBackground(new java.awt.Color(31, 116, 116));
         AreaCompras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -329,7 +316,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        PanelGeneral.add(AreaCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
 
         AreaVentas.setBackground(new java.awt.Color(31, 116, 116));
         AreaVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -365,7 +352,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
+        PanelGeneral.add(AreaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, -1, -1));
 
         AreaViajes.setBackground(new java.awt.Color(31, 116, 116));
         AreaViajes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -400,7 +387,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuViajes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 320, -1, -1));
+        PanelGeneral.add(AreaViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
 
         AreaReportes.setBackground(new java.awt.Color(31, 116, 116));
         AreaReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -435,7 +422,7 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(MenuReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, -1, -1));
+        PanelGeneral.add(AreaReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -540,6 +527,19 @@ public class Presentacion extends javax.swing.JFrame {
         }
    
     }//GEN-LAST:event_ManuUsuariosMousePressed
+
+    private void MenuInventarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuInventarioMousePressed
+        
+        if (usuarioActual.getRolR().getIdRol() == 1){         
+           
+            ModuloInventario moduloInventario = new ModuloInventario();
+            moduloInventario.setVisible(true);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null, "No tiene permiso para utilizar este modulo");
+        }
+    }//GEN-LAST:event_MenuInventarioMousePressed
     
         
 //    private void showPanel(JPanel panel){
@@ -589,7 +589,6 @@ public class Presentacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ActualUser;
     public static javax.swing.JLabel ActualUserTxt;
     private javax.swing.JPanel AreaClientes;
     private javax.swing.JPanel AreaCompras;
@@ -610,6 +609,5 @@ public class Presentacion extends javax.swing.JFrame {
     private javax.swing.JLabel MenuViajes;
     private javax.swing.JPanel PanelGeneral;
     private javax.swing.JLabel TituloSistema;
-    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }

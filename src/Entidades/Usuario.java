@@ -271,9 +271,9 @@ public class Usuario {
         return false;
     }
 
-    private static boolean revisionCampos(Usuario userRegis){
+    private static boolean revisionCampos(Usuario userTextFields){
         
-        return !(userRegis.getNombreCompleto().equals("") || userRegis.getDocumento().equals("") || userRegis.getCorreo().equals("") || userRegis.getTelefono().equals("") || userRegis.getClave().equals(""));
+        return !(userTextFields.getNombreCompleto().equals("") || userTextFields.getDocumento().equals("") || userTextFields.getCorreo().equals("") || userTextFields.getTelefono().equals("") || userTextFields.getClave().equals(""));
         
     }
       
@@ -291,11 +291,13 @@ public class Usuario {
         
         return false;
     }
-    
+
     @Override
     public String toString() {
-        return "Usuario{" + "IdUsuario=" + IdUsuario + ", IdRolR=" + RolR + ", Documento=" + Documento + ", NombreCompleto=" + NombreCompleto + ", Correo=" + Correo + ", Telefono=" + Telefono + ", Clave=" + Clave + ", Estado=" + Estado +'}';
+        return "Usuario{" + "IdUsuario=" + IdUsuario + ", RolR=" + RolR + ", Documento=" + Documento + ", NombreCompleto=" + NombreCompleto + ", Correo=" + Correo + ", Telefono=" + Telefono + ", Clave=" + Clave + ", Estado=" + Estado + '}';
     }
+    
+    
     
    
 }
