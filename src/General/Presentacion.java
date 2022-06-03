@@ -10,6 +10,7 @@ import java.awt.Color;
 import Entidades.*;
 import Paneles.ModuloUsuario;
 import Paneles.ModuloInventario;
+import Paneles.ModuloProveedor;
 import java.util.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -265,6 +266,9 @@ public class Presentacion extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 MenuProveedoresMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MenuProveedoresMousePressed(evt);
             }
         });
 
@@ -540,6 +544,19 @@ public class Presentacion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No tiene permiso para utilizar este modulo");
         }
     }//GEN-LAST:event_MenuInventarioMousePressed
+
+    private void MenuProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuProveedoresMousePressed
+        
+        if (usuarioActual.getRolR().getIdRol() == 1){         
+           
+            ModuloProveedor moduloProveedor = new ModuloProveedor();
+            moduloProveedor.setVisible(true);
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null, "No tiene permiso para utilizar este modulo");
+        }
+    }//GEN-LAST:event_MenuProveedoresMousePressed
     
         
 //    private void showPanel(JPanel panel){

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,7 @@ public class Producto {
     
     private int IdProducto;
     private Categoria CategoriaR;
+    private Proveedor ProveedorR;
     private String Codigo;
     private String Nombre;
     private String Descripcion;
@@ -28,7 +30,6 @@ public class Producto {
     private double PrecioVenta;
     private double PrecioCompra;
     private boolean Estado;
-    private String FechaCracion;
 
     public Producto() {
     }
@@ -114,13 +115,14 @@ public class Producto {
         this.Estado = Estado;
     }
 
-    public String getFechaCracion() {
-        return FechaCracion;
+    public Proveedor getProveedorR() {
+        return ProveedorR;
     }
 
-    public void setFechaCracion(String FechaCracion) {
-        this.FechaCracion = FechaCracion;
+    public void setProveedorR(Proveedor ProveedorR) {
+        this.ProveedorR = ProveedorR;
     }
+
     
     //</editor-fold>
     
@@ -132,9 +134,11 @@ public class Producto {
         List<Producto> listaProductos= new ArrayList();
         
         StringBuilder query = new StringBuilder();
-        query.append("select p.IdProducto, p.IdCategoria, p.Codigo, p.Nombre, p.Descripcion, p.StockRifer, p.StockCamion, p.PrecioVenta, p.PrecioCompra, p.Estado, c.IdCategoria, c.Nombre, c.Descripcion, c.Estado from PRODUCTO p");
+        query.append("select p.IdProducto, p.IdCategoria, p.IdProveedor, p.Codigo, p.Nombre, p.Descripcion, p.StockRifer, p.StockCamion, p.PrecioVenta, p.PrecioCompra, p.Estado, c.Nombre, c.Descripcion, c.Estado, v.IdProveedor, v.RazonSocial from PRODUCTO p");
         query.append("\n");
         query.append("inner join CATEGORIA c on c.IdCategoria = p.IdCategoria");
+        query.append("\n");
+        query.append("inner join PROVEEDOR v on v.IdProveedor = p.IdProveedor");
         
         try {
        
@@ -145,6 +149,7 @@ public class Producto {
                 
                 Producto prodAux = new Producto();
                 Categoria catAux = new Categoria();
+                Proveedor provAux = new Proveedor();
                 
                 prodAux.setIdProducto(rs.getInt("IdProducto"));
                 prodAux.setCodigo(rs.getString("Codigo"));
@@ -155,15 +160,20 @@ public class Producto {
                 prodAux.setPrecioVenta(rs.getDouble("PrecioVenta"));
                 prodAux.setPrecioCompra(rs.getDouble("PrecioCompra"));
                 prodAux.setEstado(rs.getBoolean("Estado"));
+                
                 catAux.setIdCategoria(rs.getInt("IdCategoria"));
                 catAux.setNombre(rs.getString("c.Nombre"));
-                catAux.setDescripcion(rs.getString("c.Descripcion"));
                 catAux.setEstado(rs.getBoolean("c.Estado"));
+                
+                provAux.setIdProveedor(rs.getInt("IdProveedor"));
+                provAux.setRazonSocial(rs.getString("RazonSocial"));
              
                 prodAux.setCategoriaR(catAux);
+                prodAux.setProveedorR(provAux);
                 listaProductos.add(prodAux);
                 
             }
+            
          
         } catch (SQLException e) {
             
@@ -180,19 +190,20 @@ public class Producto {
        
         PreparedStatement ps;
         
-        String query = "INSERT INTO PRODUCTO (IdCategoria, Codigo, Nombre, Descripcion, PrecioVenta, PrecioCompra, Estado) VALUES(?,?,?,?,?,?,?)";
+        String query = "INSERT INTO PRODUCTO (IdCategoria, IdProveedor, Codigo, Nombre, Descripcion, PrecioVenta, PrecioCompra, Estado) VALUES(?,?,?,?,?,?,?,?)";
      
         try {
        
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
             
             ps.setInt(1, prodTextFields.getCategoriaR().getIdCategoria());
-            ps.setString(2, prodTextFields.getCodigo());
-            ps.setString(3, prodTextFields.getNombre());
-            ps.setString(4, prodTextFields.getDescripcion());
-            ps.setDouble(5, prodTextFields.getPrecioVenta());
-            ps.setDouble(6, prodTextFields.getPrecioCompra());
-            ps.setBoolean(7, prodTextFields.isEstado());
+            ps.setInt(2, prodTextFields.getProveedorR().getIdProveedor());
+            ps.setString(3, prodTextFields.getCodigo());
+            ps.setString(4, prodTextFields.getNombre());
+            ps.setString(5, prodTextFields.getDescripcion());
+            ps.setDouble(6, prodTextFields.getPrecioVenta());
+            ps.setDouble(7, prodTextFields.getPrecioCompra());
+            ps.setBoolean(8, prodTextFields.isEstado());
             
             
             if(productoRepetido(prodTextFields)){
@@ -222,25 +233,26 @@ public class Producto {
        return false;
     }
     
-        static public boolean actualizarProducto(Producto prodTextFields){
+    static public boolean actualizarProducto(Producto prodTextFields){
         
         PreparedStatement ps;
         
-        String query = "UPDATE PRODUCTO SET IdCategoria=?, Codigo=?, Nombre=?, Descripcion=?, PrecioVenta=?, PrecioCompra=?, Estado=? WHERE IdProducto=?";
+        String query = "UPDATE PRODUCTO SET IdCategoria=?, IdProveedor=?, Codigo=?, Nombre=?, Descripcion=?, PrecioVenta=?, PrecioCompra=?, Estado=? WHERE IdProducto=?";
      
         try {
             
-            System.out.println(prodTextFields);
+         
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
             ps.setInt(1, prodTextFields.getCategoriaR().getIdCategoria());
-            ps.setString(2, prodTextFields.getCodigo());
-            ps.setString(3, prodTextFields.getNombre());
-            ps.setString(4, prodTextFields.getDescripcion());
-            ps.setDouble(5, prodTextFields.getPrecioVenta());
-            ps.setDouble(6, prodTextFields.getPrecioCompra());
-            ps.setBoolean(7, prodTextFields.isEstado());
-            ps.setInt(8, prodTextFields.getIdProducto());
+            ps.setInt(2, prodTextFields.getProveedorR().getIdProveedor());
+            ps.setString(3, prodTextFields.getCodigo());
+            ps.setString(4, prodTextFields.getNombre());
+            ps.setString(5, prodTextFields.getDescripcion());
+            ps.setDouble(6, prodTextFields.getPrecioVenta());
+            ps.setDouble(7, prodTextFields.getPrecioCompra());
+            ps.setBoolean(8, prodTextFields.isEstado());
+            ps.setInt(9, prodTextFields.getIdProducto());
            
             if(revisionCampos(prodTextFields) && prodTextFields.getIdProducto()> 0){
                 
@@ -310,7 +322,7 @@ public class Producto {
         
         for (Producto aux : listaProductos){
             
-            if (aux.getCodigo().equals(prodResgis.getCodigo())){
+            if (aux.equals(prodResgis)){
                 
                 return true;
             }
@@ -321,10 +333,36 @@ public class Producto {
     
     private static boolean revisionCampos(Producto prodTextFields){
         
-        return !(prodTextFields.getNombre().equals("")  || prodTextFields.getCodigo().equals("") || (prodTextFields.getPrecioCompra() == 0.0) || (prodTextFields.getPrecioVenta()== 0.0));
+        return !(prodTextFields.getNombre().equals("")  || prodTextFields.getCodigo().equals(""));
         
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.Codigo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto other = (Producto) obj;
+        if (!Objects.equals(this.Codigo, other.Codigo)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     @Override
     public String toString() {
         return "Producto{" + "IdProducto=" + IdProducto + ", CategoriaR=" + CategoriaR + ", Codigo=" + Codigo + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion + ", StockRifer=" + StockRifer + ", StockCamion=" + StockCamion + ", PrecioVenta=" + PrecioVenta + ", PrecioCompra=" + PrecioCompra + ", Estado=" + Estado + '}';

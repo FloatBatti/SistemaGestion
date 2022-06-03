@@ -114,7 +114,7 @@ public class SubModuloInventario extends javax.swing.JFrame {
 
         NombreTitle.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         NombreTitle.setForeground(new java.awt.Color(0, 0, 0));
-        NombreTitle.setText("Nombre Producto");
+        NombreTitle.setText("Nombre");
 
         NombreTxt.setBackground(new java.awt.Color(255, 255, 255));
         NombreTxt.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N

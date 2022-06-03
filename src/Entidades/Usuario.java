@@ -9,6 +9,7 @@ import java.util.List;
 import Datos.*;
 import java.sql.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.swing.JOptionPane;
 
@@ -283,7 +284,7 @@ public class Usuario {
         
         for (Usuario aux : listaUsuarios){
             
-            if (aux.getDocumento().equals(userRegis.getDocumento()) || aux.getCorreo().equals(userRegis.getCorreo()) || userRegis.getIdUsuario() > 0){
+            if (aux.equals(userRegis)){
                 
                 return true;
             }
@@ -292,6 +293,35 @@ public class Usuario {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.Documento);
+        hash = 41 * hash + Objects.hashCode(this.Correo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.Documento, other.Documento) && !Objects.equals(this.Correo, other.Correo)) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    
     @Override
     public String toString() {
         return "Usuario{" + "IdUsuario=" + IdUsuario + ", RolR=" + RolR + ", Documento=" + Documento + ", NombreCompleto=" + NombreCompleto + ", Correo=" + Correo + ", Telefono=" + Telefono + ", Clave=" + Clave + ", Estado=" + Estado + '}';

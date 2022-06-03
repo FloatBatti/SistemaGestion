@@ -7,6 +7,7 @@ package Paneles;
 import Datos.GeneralConnection;
 import Entidades.Categoria;
 import Entidades.Producto;
+import Entidades.Proveedor;
 import Entidades.Rol;
 import Entidades.Usuario;
 import java.awt.Point;
@@ -45,8 +46,12 @@ public class ModuloInventario extends javax.swing.JFrame {
                     PrecioCompraTxt.setText((String) TablaProductos.getValueAt(TablaProductos.getSelectedRow(), 7));
                     PrecioVentaTxt.setText((String) TablaProductos.getValueAt(TablaProductos.getSelectedRow(), 8));
                             
+                    
                     CategoriaComBox.setSelectedItem(TablaProductos.getValueAt(TablaProductos.getSelectedRow(), 2));
-                    EstadoComBox.setSelectedItem(TablaProductos.getValueAt(TablaProductos.getSelectedRow(), 9));
+                    
+                    ProveedorComboBox.setSelectedItem(TablaProductos.getValueAt(TablaProductos.getSelectedRow(), 9));
+                    
+                    EstadoComBox.setSelectedItem(TablaProductos.getValueAt(TablaProductos.getSelectedRow(), 10));
                 }
             }
         });
@@ -92,6 +97,8 @@ public class ModuloInventario extends javax.swing.JFrame {
         PrecioVentaTitle = new javax.swing.JLabel();
         PrecioVentaTxt = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
+        ProveedorTitle = new javax.swing.JLabel();
+        ProveedorComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -110,14 +117,14 @@ public class ModuloInventario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Codigo", "Categoria", "Nombre", "Descripcion", "SotckRifer", "StockCamion", "PrecioCompra", "PrecioVenta", "Estado"
+                "ID", "Codigo", "Categoria", "Nombre", "Descripcion", "Rifer", "Camion", "PrecioCompra", "PrecioVenta", "Proveedor", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -131,6 +138,9 @@ public class ModuloInventario extends javax.swing.JFrame {
         AreaTabla.setViewportView(TablaProductos);
         if (TablaProductos.getColumnModel().getColumnCount() > 0) {
             TablaProductos.getColumnModel().getColumn(0).setPreferredWidth(10);
+            TablaProductos.getColumnModel().getColumn(1).setPreferredWidth(25);
+            TablaProductos.getColumnModel().getColumn(5).setPreferredWidth(15);
+            TablaProductos.getColumnModel().getColumn(6).setPreferredWidth(15);
         }
 
         NombreTitle.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
@@ -367,13 +377,21 @@ public class ModuloInventario extends javax.swing.JFrame {
         jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
 
+        ProveedorTitle.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        ProveedorTitle.setForeground(new java.awt.Color(0, 0, 0));
+        ProveedorTitle.setText("Proveedor");
+
+        ProveedorComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        ProveedorComboBox.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        ProveedorComboBox.setBorder(null);
+
         javax.swing.GroupLayout PanelGeneralLayout = new javax.swing.GroupLayout(PanelGeneral);
         PanelGeneral.setLayout(PanelGeneralLayout);
         PanelGeneralLayout.setHorizontalGroup(
             PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelGeneralLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(PanelGeneralLayout.createSequentialGroup()
@@ -400,33 +418,30 @@ public class ModuloInventario extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(CategoriaComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(531, 531, 531)
-                        .addComponent(PanelGestionCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(AreaTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(PanelGeneralLayout.createSequentialGroup()
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                    .addComponent(PrecioVentaTitle)
-                                    .addComponent(PrecioVentaTxt))
-                                .addGap(25, 25, 25))
                             .addGroup(PanelGeneralLayout.createSequentialGroup()
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelGeneralLayout.createSequentialGroup()
+                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGeneralLayout.createSequentialGroup()
+                                        .addComponent(PrecioCompraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(43, 43, 43)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PrecioVentaTitle)
+                                    .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSeparator5)
+                                        .addComponent(PrecioVentaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(25, 25, 25)))
                         .addGap(43, 43, 43)
-                        .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addComponent(PreciCompraTitle)
                         .addGap(59, 59, 59)
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(IdProductTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelGeneralLayout.createSequentialGroup()
                                 .addGap(98, 98, 98)
                                 .addComponent(PanelCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,9 +450,22 @@ public class ModuloInventario extends javax.swing.JFrame {
                                     .addComponent(CheckConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(PanelActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(PanelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(PrecioCompraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 26, Short.MAX_VALUE))
+                                .addComponent(PanelEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelGeneralLayout.createSequentialGroup()
+                                .addComponent(IdProductTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ProveedorTitle)
+                                    .addComponent(ProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(107, 107, 107)
+                                .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGeneralLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelGestionCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AreaTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 16, Short.MAX_VALUE))
         );
         PanelGeneralLayout.setVerticalGroup(
             PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,16 +509,20 @@ public class ModuloInventario extends javax.swing.JFrame {
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelGeneralLayout.createSequentialGroup()
-                                .addGap(0, 6, Short.MAX_VALUE)
-                                .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(73, 73, 73))
+                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelGeneralLayout.createSequentialGroup()
+                                        .addComponent(ProveedorTitle)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(ProveedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(PanelLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(PanelGeneralLayout.createSequentialGroup()
                                 .addComponent(PrecioVentaTitle)
-                                .addGap(6, 6, 6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(PrecioVentaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)))
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PanelCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PanelActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,24 +546,31 @@ public class ModuloInventario extends javax.swing.JFrame {
         }
          
     }
+    
     private void llenarTableProducto(){
         
         limpiarTabla();
+        CategoriaComBox.removeAllItems();
+        ProveedorComboBox.removeAllItems();
         
         List<Producto> listaProductos = Producto.listarProductos();
         List<Categoria> listaCategorias = Categoria.listarCategorias();
+        List<Proveedor> listaProveedores = Proveedor.listarProveedores();
         
-        System.out.println(listaProductos);
         DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
         
-        String [] datos = new String[10];
+        String [] datos = new String[11];
         
         for(Categoria aux : listaCategorias){
             
             CategoriaComBox.addItem(aux.getNombre());
         }
         
-        CategoriaComBox.setSelectedItem(listaCategorias.get(0));
+        for(Proveedor aux : listaProveedores){
+            
+            ProveedorComboBox.addItem(aux.getRazonSocial());
+        }
+        
   
         for (Producto aux : listaProductos){
            
@@ -544,7 +583,8 @@ public class ModuloInventario extends javax.swing.JFrame {
             datos[6] = Double.toString(aux.getStockCamion());
             datos[7] = Double.toString(aux.getPrecioCompra());
             datos[8] = Double.toString(aux.getPrecioVenta());
-            datos[9] = (aux.isEstado()) ? "Activo" : "No Activo";
+            datos[9] = aux.getProveedorR().getRazonSocial();
+            datos[10] = (aux.isEstado()) ? "Activo" : "No Activo";
          
             modelo.addRow(datos);
         }
@@ -555,7 +595,9 @@ public class ModuloInventario extends javax.swing.JFrame {
         
         Producto auxProd = new Producto();
         Categoria auxCat = new Categoria();
+        Proveedor auxProv = new Proveedor();
         List<Categoria> listaCategorias = Categoria.listarCategorias();
+        List<Proveedor> listaProveedores = Proveedor.listarProveedores();
         
         if (!(IdProductTxt.getText().equals(""))){
            
@@ -592,13 +634,22 @@ public class ModuloInventario extends javax.swing.JFrame {
             
             if (CategoriaComBox.getSelectedItem().equals(aux.getNombre())){
                     
-                    auxCat.setIdCategoria(aux.getIdCategoria());
-                    auxCat.setDescripcion(aux.getDescripcion());
+                    auxCat = aux;
                     break;
                 }    
         }
         
+        for (Proveedor aux : listaProveedores){
+            
+            if (ProveedorComboBox.getSelectedItem().equals(aux.getRazonSocial())){
+                
+                auxProv = aux;
+                break;
+            }
+        }
+        
         auxProd.setCategoriaR(auxCat);
+        auxProd.setProveedorR(auxProv);
         auxProd.setEstado(EstadoComBox.getSelectedItem().equals("Activo"));
       
         
@@ -614,6 +665,8 @@ public class ModuloInventario extends javax.swing.JFrame {
         PrecioCompraTxt.setText("0.0");
         PrecioVentaTxt.setText("0.0");
         EstadoComBox.setSelectedItem("Activo");
+        CategoriaComBox.setSelectedIndex(0);
+        ProveedorComboBox.setSelectedIndex(0);
         CheckConfirmar.setSelected(false);
     }
     private void CheckConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConfirmarActionPerformed
@@ -674,7 +727,6 @@ public class ModuloInventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotonEliminarMouseClicked
 
-    
     private void BotonLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLimpiarMouseClicked
 
         limpiarFields();
@@ -701,6 +753,7 @@ public class ModuloInventario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solo debe ingresar numeros");
         }
     }
+    
     private void PrecioCompraTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrecioCompraTxtKeyTyped
         
         validarNumeros(evt);
@@ -776,6 +829,8 @@ public class ModuloInventario extends javax.swing.JFrame {
     private javax.swing.JTextField PrecioCompraTxt;
     private javax.swing.JLabel PrecioVentaTitle;
     private javax.swing.JTextField PrecioVentaTxt;
+    private javax.swing.JComboBox<String> ProveedorComboBox;
+    private javax.swing.JLabel ProveedorTitle;
     private javax.swing.JTable TablaProductos;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;

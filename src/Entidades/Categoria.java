@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 
 
@@ -18,7 +19,7 @@ public class Categoria {
     
     private int IdCategoria;
     private String Nombre;
-    private String Descripcion;
+    private String Descripcion ="";
     private boolean Estado;
 
     public Categoria() {
@@ -108,7 +109,7 @@ public class Categoria {
             ps.setString(2, catTextFields.getDescripcion());
             ps.setBoolean(3, catTextFields.isEstado());
 
-            if(productoRepetido(catTextFields)){
+            if(categoriaRepetida(catTextFields)){
                 
                 JOptionPane.showMessageDialog(null, "La categoria ya existe. Limpie los campos");
                 return false;
@@ -212,13 +213,13 @@ public class Categoria {
         return false;
     }
     
-    static private boolean productoRepetido(Categoria catResgis){
+    static private boolean categoriaRepetida(Categoria catResgis){
         
         List<Categoria> listaCategorias = listarCategorias();
         
         for (Categoria aux : listaCategorias){
             
-            if (aux.getNombre().equals(catResgis.getNombre())){
+            if (aux.equals(catResgis)){
                 
                 return true;
             }
@@ -233,6 +234,32 @@ public class Categoria {
         
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + Objects.hashCode(this.Nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Categoria other = (Categoria) obj;
+        if (!Objects.equals(this.Nombre, other.Nombre)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     @Override
     public String toString() {
         return "Categoria{" + "IdCategoria=" + IdCategoria + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion + ", Estado=" + Estado + '}';
