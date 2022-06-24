@@ -7,10 +7,13 @@ package Paneles;
 import Datos.GeneralConnection;
 import Entidades.Categoria;
 import Entidades.Producto;
+import Entidades.Rol;
+import Entidades.Usuario;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -276,18 +279,16 @@ public class SubModuloInventario extends javax.swing.JFrame {
                 .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelGeneralLayout.createSequentialGroup()
-                                .addComponent(NombreTitle)
-                                .addGap(52, 52, 52)
-                                .addComponent(DescripcionTitle))
-                            .addGroup(PanelGeneralLayout.createSequentialGroup()
-                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(NombreTxt)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                                .addGap(43, 43, 43)
-                                .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(DescripcionTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(NombreTxt)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addComponent(NombreTitle))
+                        .addGap(43, 43, 43)
+                        .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DescripcionTitle)
+                            .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DescripcionTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
                         .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +331,7 @@ public class SubModuloInventario extends javax.swing.JFrame {
                 .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(PanelLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
-                        .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NombreTitle)
                             .addComponent(DescripcionTitle))
                         .addGap(6, 6, 6)
@@ -391,63 +392,95 @@ public class SubModuloInventario extends javax.swing.JFrame {
         }
         
     }
+    
+    private void limpiarFields(){
+        
+        IdCategoriaTxt.setText("");
+        NombreTxt.setText("");
+        DescripcionTxt.setText("");
+        EstadoComBox.setSelectedItem("Activo");
+        CheckConfirmar.setSelected(false);
+    }
+    
     private void BotonLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLimpiarMouseClicked
 
-        //limpiarFields();
+        limpiarFields();
     }//GEN-LAST:event_BotonLimpiarMouseClicked
-
+    
+    private Categoria catTextFields(){
+        
+        Categoria auxCat = new Categoria();
+    
+        if (!(IdCategoriaTxt.getText().equals(""))){
+           
+           auxCat.setIdCategoria(Integer.parseInt(IdCategoriaTxt.getText()));
+        }
+        else{
+            auxCat.setIdCategoria(0);
+        }
+        
+        auxCat.setNombre(NombreTxt.getText());
+        auxCat.setDescripcion(DescripcionTxt.getText());
+        
+        
+        auxCat.setEstado(EstadoComBox.getSelectedItem().equals("Activo"));
+      
+        
+        return auxCat;
+    }
+    
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
 
-//        GeneralConnection.firewallConnection();
-//
-//        if(CheckConfirmar.isSelected()){
-//
-//                if(Producto.registrarUsuario(TextFields())){
-//
-//                        llenarTableUsuario();
-//                        limpiarFields();
-//                    }
-//            }
-//        else{
-//
-//                JOptionPane.showMessageDialog(null, "Debe confirmar para crear el usuario");
-//            }
+        GeneralConnection.firewallConnection();
+
+        if(CheckConfirmar.isSelected()){
+
+                if(Categoria.registrarCategoria(catTextFields())){
+
+                        llenarTableCategoria();
+                        limpiarFields();
+                    }
+            }
+        else{
+
+                JOptionPane.showMessageDialog(null, "Debe confirmar para crear la categoria");
+            }
     }//GEN-LAST:event_BotonCrearMouseClicked
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
 
-        //        GeneralConnection.firewallConnection();
-        //
-        //        if(CheckConfirmar.isSelected()){
-            //
-            //            if(Usuario.actualizarUsuario(userTextFields())){
-                //
-                //                llenarTableUsuario();
-                //                limpiarFields();
-                //            }
-            //        }
-        //        else{
-            //
-            //            JOptionPane.showMessageDialog(null, "Debe confirmar para actualizar el usuario");
-            //        }
+        GeneralConnection.firewallConnection();
+
+        if(CheckConfirmar.isSelected()){
+
+                if(Categoria.actualizarCategoria(catTextFields())){
+
+                        llenarTableCategoria();
+                        limpiarFields();
+                    }
+            }
+        else{
+
+                JOptionPane.showMessageDialog(null, "Debe confirmar para actualizar la categoria");
+            }
     }//GEN-LAST:event_BotonActualizarMouseClicked
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
 
-        //        GeneralConnection.firewallConnection();
-        //
-        //        if(CheckConfirmar.isSelected()){
-            //
-            //            if(Usuario.eliminarUsuario(userTextFields())){
-                //
-                //                llenarTableUsuario();
-                //                limpiarFields();
-                //            }
-            //        }
-        //        else{
-            //
-            //            JOptionPane.showMessageDialog(null, "Debe confirmar para eliminar el usuario");
-            //        }
+        GeneralConnection.firewallConnection();
+
+        if(CheckConfirmar.isSelected()){
+
+                if(Categoria.eliminarCategoria(catTextFields())){
+
+                        llenarTableCategoria();
+                        limpiarFields();
+                    }
+            }
+        else{
+
+                JOptionPane.showMessageDialog(null, "Debe confirmar para eliminar la categoria");
+            }
     }//GEN-LAST:event_BotonEliminarMouseClicked
 
     private void CheckConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConfirmarActionPerformed

@@ -230,7 +230,7 @@ public class Categoria {
     
     private static boolean revisionCampos(Categoria catTextFields){
         
-        return !(catTextFields.getNombre().equals("")  || catTextFields.getDescripcion().equals(""));
+        return !(catTextFields.getNombre().equals(""));
         
     }
 

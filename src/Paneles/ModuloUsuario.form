@@ -78,7 +78,7 @@
                               <Component id="TelefonoTitle" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jSeparator4" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                               <Component id="ClaveTitle" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="IdUsuerTxt" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="IdUserTxt" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="29" max="32767" attributes="0"/>
                           <Component id="AreaTabla" min="-2" pref="643" max="-2" attributes="0"/>
@@ -128,7 +128,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="IdUsuerTxt" min="-2" max="-2" attributes="0"/>
+                          <Component id="IdUserTxt" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="NombreTitle" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -705,7 +705,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="IdUsuerTxt">
+        <Component class="javax.swing.JTextField" name="IdUserTxt">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

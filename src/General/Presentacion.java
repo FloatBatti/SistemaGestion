@@ -85,23 +85,22 @@ public class Presentacion extends javax.swing.JFrame {
 
         PanelGeneral.setBackground(new java.awt.Color(255, 255, 255));
         PanelGeneral.setName(""); // NOI18N
-        PanelGeneral.setPreferredSize(new java.awt.Dimension(770, 542));
+        PanelGeneral.setPreferredSize(new java.awt.Dimension(770, 471));
         PanelGeneral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Header.setBackground(new java.awt.Color(31, 116, 116));
-        Header.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        Header.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                HeaderMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                HeaderMouseExited(evt);
-            }
-        });
 
         TituloSistema.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         TituloSistema.setForeground(new java.awt.Color(255, 255, 255));
         TituloSistema.setText("Bienvenido al sistema de Gestion DePez");
+        TituloSistema.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TituloSistemaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TituloSistemaMouseExited(evt);
+            }
+        });
 
         ActualUserTxt.setForeground(new java.awt.Color(255, 255, 255));
         ActualUserTxt.setText("Usuario actual : Default");
@@ -111,7 +110,7 @@ public class Presentacion extends javax.swing.JFrame {
         HeaderLayout.setHorizontalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
                         .addComponent(TituloSistema)
@@ -127,13 +126,12 @@ public class Presentacion extends javax.swing.JFrame {
                 .addComponent(TituloSistema)
                 .addGap(18, 18, 18)
                 .addComponent(ActualUserTxt)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         PanelGeneral.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 100));
 
         AreaUsuario.setBackground(new java.awt.Color(31, 116, 116));
-        AreaUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         ManuUsuarios.setBackground(new java.awt.Color(0, 0, 0));
         ManuUsuarios.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -168,10 +166,9 @@ public class Presentacion extends javax.swing.JFrame {
             .addComponent(ManuUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
+        PanelGeneral.add(AreaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
 
         AreaInventario.setBackground(new java.awt.Color(31, 116, 116));
-        AreaInventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaInventario.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuInventario.setBackground(new java.awt.Color(255, 255, 255));
@@ -201,17 +198,16 @@ public class Presentacion extends javax.swing.JFrame {
         AreaInventario.setLayout(AreaInventarioLayout);
         AreaInventarioLayout.setHorizontalGroup(
             AreaInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuInventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+            .addComponent(MenuInventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         AreaInventarioLayout.setVerticalGroup(
             AreaInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuInventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuInventario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+        PanelGeneral.add(AreaInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
         AreaClientes.setBackground(new java.awt.Color(31, 116, 116));
-        AreaClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaClientes.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuClientes.setBackground(new java.awt.Color(255, 255, 255));
@@ -237,17 +233,16 @@ public class Presentacion extends javax.swing.JFrame {
         AreaClientes.setLayout(AreaClientesLayout);
         AreaClientesLayout.setHorizontalGroup(
             AreaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+            .addComponent(MenuClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         AreaClientesLayout.setVerticalGroup(
             AreaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 110, -1));
+        PanelGeneral.add(AreaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 110, -1));
 
         AreaProveedores.setBackground(new java.awt.Color(31, 116, 116));
-        AreaProveedores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaProveedores.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuProveedores.setBackground(new java.awt.Color(255, 255, 255));
@@ -276,17 +271,16 @@ public class Presentacion extends javax.swing.JFrame {
         AreaProveedores.setLayout(AreaProveedoresLayout);
         AreaProveedoresLayout.setHorizontalGroup(
             AreaProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+            .addComponent(MenuProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         AreaProveedoresLayout.setVerticalGroup(
             AreaProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
+        PanelGeneral.add(AreaProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
 
         AreaCompras.setBackground(new java.awt.Color(31, 116, 116));
-        AreaCompras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaCompras.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuCompras.setBackground(new java.awt.Color(255, 255, 255));
@@ -313,17 +307,16 @@ public class Presentacion extends javax.swing.JFrame {
         AreaCompras.setLayout(AreaComprasLayout);
         AreaComprasLayout.setHorizontalGroup(
             AreaComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+            .addComponent(MenuCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         AreaComprasLayout.setVerticalGroup(
             AreaComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
+        PanelGeneral.add(AreaCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, -1, -1));
 
         AreaVentas.setBackground(new java.awt.Color(31, 116, 116));
-        AreaVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaVentas.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuVentas.setBackground(new java.awt.Color(255, 255, 255));
@@ -349,17 +342,16 @@ public class Presentacion extends javax.swing.JFrame {
         AreaVentas.setLayout(AreaVentasLayout);
         AreaVentasLayout.setHorizontalGroup(
             AreaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+            .addComponent(MenuVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         AreaVentasLayout.setVerticalGroup(
             AreaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, -1, -1));
+        PanelGeneral.add(AreaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, -1));
 
         AreaViajes.setBackground(new java.awt.Color(31, 116, 116));
-        AreaViajes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaViajes.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuViajes.setBackground(new java.awt.Color(255, 255, 255));
@@ -388,13 +380,12 @@ public class Presentacion extends javax.swing.JFrame {
         );
         AreaViajesLayout.setVerticalGroup(
             AreaViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuViajes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuViajes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
+        PanelGeneral.add(AreaViajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, -1, -1));
 
         AreaReportes.setBackground(new java.awt.Color(31, 116, 116));
-        AreaReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         AreaReportes.setPreferredSize(new java.awt.Dimension(114, 95));
 
         MenuReportes.setBackground(new java.awt.Color(255, 255, 255));
@@ -419,14 +410,14 @@ public class Presentacion extends javax.swing.JFrame {
         AreaReportes.setLayout(AreaReportesLayout);
         AreaReportesLayout.setHorizontalGroup(
             AreaReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+            .addComponent(MenuReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         AreaReportesLayout.setVerticalGroup(
             AreaReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MenuReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(MenuReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
         );
 
-        PanelGeneral.add(AreaReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, -1, -1));
+        PanelGeneral.add(AreaReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -447,78 +438,88 @@ public class Presentacion extends javax.swing.JFrame {
     
     // <editor-fold defaultstate="collapsed" desc="Modulos">
     private void MenuClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuClientesMouseEntered
-        AreaClientes.setBackground(new Color(73,127,127));
+        
+        AreaClientes.setBackground(new java.awt.Color(0, 153, 153));
+        AreaClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuClientesMouseEntered
 
     private void MenuClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuClientesMouseExited
         AreaClientes.setBackground(new Color(31,116,116));
+        AreaClientes.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
+        
     }//GEN-LAST:event_MenuClientesMouseExited
 
     private void MenuProveedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuProveedoresMouseEntered
-        AreaProveedores.setBackground(new Color(73,127,127));
+        AreaProveedores.setBackground(new java.awt.Color(0, 153, 153));
+        AreaProveedores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuProveedoresMouseEntered
 
     private void MenuProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuProveedoresMouseExited
         AreaProveedores.setBackground(new Color(31,116,116));
+        AreaProveedores.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_MenuProveedoresMouseExited
 
     private void MenuComprasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuComprasMouseEntered
-        AreaCompras.setBackground(new Color(73,127,127));
+        AreaCompras.setBackground(new java.awt.Color(0, 153, 153));
+        AreaCompras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuComprasMouseEntered
 
     private void MenuComprasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuComprasMouseExited
         AreaCompras.setBackground(new Color(31,116,116));
+        AreaCompras.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_MenuComprasMouseExited
 
     private void MenuVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuVentasMouseEntered
-        AreaVentas.setBackground(new Color(73,127,127));
+        AreaVentas.setBackground(new java.awt.Color(0, 153, 153));
+        AreaVentas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuVentasMouseEntered
 
     private void MenuVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuVentasMouseExited
         AreaVentas.setBackground(new Color(31,116,116));
+        AreaVentas.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_MenuVentasMouseExited
 
     private void MenuViajesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuViajesMouseEntered
-        AreaViajes.setBackground(new Color(73,127,127));
+        AreaViajes.setBackground(new java.awt.Color(0, 153, 153));
+        AreaViajes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuViajesMouseEntered
 
     private void MenuViajesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuViajesMouseExited
         AreaViajes.setBackground(new Color(31,116,116));
+        AreaViajes.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_MenuViajesMouseExited
 
     private void MenuReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuReportesMouseEntered
-        AreaReportes.setBackground(new Color(73,127,127));
+        AreaReportes.setBackground(new java.awt.Color(0, 153, 153));
+        AreaReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuReportesMouseEntered
 
     private void MenuReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuReportesMouseExited
         AreaReportes.setBackground(new Color(31,116,116));
+        AreaReportes.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_MenuReportesMouseExited
 
     private void MenuInventarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuInventarioMouseExited
         AreaInventario.setBackground(new Color(31,116,116));
+        AreaInventario.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_MenuInventarioMouseExited
 
     private void MenuInventarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuInventarioMouseEntered
-        AreaInventario.setBackground(new Color(73,127,127));
+        AreaInventario.setBackground(new java.awt.Color(0, 153, 153));
+        AreaInventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_MenuInventarioMouseEntered
 
     private void ManuUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManuUsuariosMouseExited
         AreaUsuario.setBackground(new Color(31,116,116));
+        AreaUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
     }//GEN-LAST:event_ManuUsuariosMouseExited
 
     private void ManuUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManuUsuariosMouseEntered
-        AreaUsuario.setBackground(new Color(73,127,127));
+        AreaUsuario.setBackground(new java.awt.Color(0, 153, 153));
+        AreaUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     }//GEN-LAST:event_ManuUsuariosMouseEntered
     //</editor-fold>
     
-    private void HeaderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMouseEntered
-        Header.setBackground(new Color(73,127,127));
-    }//GEN-LAST:event_HeaderMouseEntered
-
-    private void HeaderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMouseExited
-        Header.setBackground(new Color(31,116,116));
-    }//GEN-LAST:event_HeaderMouseExited
-
     private void ManuUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManuUsuariosMousePressed
         
         if (usuarioActual.getRolR().getIdRol() == 1){         
@@ -557,6 +558,14 @@ public class Presentacion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No tiene permiso para utilizar este modulo");
         }
     }//GEN-LAST:event_MenuProveedoresMousePressed
+
+    private void TituloSistemaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TituloSistemaMouseEntered
+        TituloSistema.setForeground(new java.awt.Color(0,51,51));
+    }//GEN-LAST:event_TituloSistemaMouseEntered
+
+    private void TituloSistemaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TituloSistemaMouseExited
+        TituloSistema.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_TituloSistemaMouseExited
     
         
 //    private void showPanel(JPanel panel){

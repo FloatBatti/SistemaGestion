@@ -27,7 +27,7 @@ public class ModuloUsuario extends javax.swing.JFrame {
     public ModuloUsuario() {
         initComponents();
         this.setLocationRelativeTo(null);
-         llenarTableUsuario();
+        llenarTableUsuario();
         TablaUsuarios.addMouseListener(new MouseAdapter(){
             
             public void mousePressed(MouseEvent Mouse_evt){
@@ -37,7 +37,7 @@ public class ModuloUsuario extends javax.swing.JFrame {
                 int row = table.rowAtPoint(point);
                 if (Mouse_evt.getClickCount() == 1){
                     
-                    IdUsuerTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 0));
+                    IdUserTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 0));
                     NombreTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 1));
                     DocumentoTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 2));
                     CorreoTxt.setText((String) TablaUsuarios.getValueAt(TablaUsuarios.getSelectedRow(), 3));
@@ -90,7 +90,7 @@ public class ModuloUsuario extends javax.swing.JFrame {
         BotonEliminar = new javax.swing.JLabel();
         PanelLimpiar = new javax.swing.JPanel();
         BotonLimpiar = new javax.swing.JLabel();
-        IdUsuerTxt = new javax.swing.JTextField();
+        IdUserTxt = new javax.swing.JTextField();
         CheckConfirmar = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -312,10 +312,10 @@ public class ModuloUsuario extends javax.swing.JFrame {
             .addComponent(BotonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        IdUsuerTxt.setEditable(false);
-        IdUsuerTxt.setBackground(new java.awt.Color(255, 255, 255));
-        IdUsuerTxt.setForeground(new java.awt.Color(255, 255, 255));
-        IdUsuerTxt.setBorder(null);
+        IdUserTxt.setEditable(false);
+        IdUserTxt.setBackground(new java.awt.Color(255, 255, 255));
+        IdUserTxt.setForeground(new java.awt.Color(255, 255, 255));
+        IdUserTxt.setBorder(null);
 
         CheckConfirmar.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         CheckConfirmar.setForeground(new java.awt.Color(0, 0, 0));
@@ -346,7 +346,7 @@ public class ModuloUsuario extends javax.swing.JFrame {
                             .addComponent(TelefonoTitle)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ClaveTitle)
-                            .addComponent(IdUsuerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(IdUserTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(AreaTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))
@@ -385,7 +385,7 @@ public class ModuloUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(PanelGeneralLayout.createSequentialGroup()
-                        .addComponent(IdUsuerTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(IdUserTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(NombreTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -561,13 +561,12 @@ public class ModuloUsuario extends javax.swing.JFrame {
         for( int i = modelo.getRowCount() - 1; i >= 0; i-- ) {
             modelo.removeRow(i);
         }
-        
-        
+    
     }
     
     private void limpiarFields(){
         
-        IdUsuerTxt.setText("");
+        IdUserTxt.setText("");
         NombreTxt.setText("");
         DocumentoTxt.setText("");
         CorreoTxt.setText("");
@@ -584,9 +583,9 @@ public class ModuloUsuario extends javax.swing.JFrame {
         Rol auxRol = new Rol();
         List<Rol> listaRoles = Rol.listarRoles();
         
-        if (!(IdUsuerTxt.getText().equals(""))){
+        if (!(IdUserTxt.getText().equals(""))){
            
-           auxUser.setIdUsuario(Integer.parseInt(IdUsuerTxt.getText()));
+           auxUser.setIdUsuario(Integer.parseInt(IdUserTxt.getText()));
         }
         else{
             auxUser.setIdUsuario(0);
@@ -666,7 +665,7 @@ public class ModuloUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField DocumentoTxt;
     private javax.swing.JComboBox<String> EstadoComBox;
     private javax.swing.JLabel EstadoTitle;
-    private javax.swing.JTextField IdUsuerTxt;
+    private javax.swing.JTextField IdUserTxt;
     private javax.swing.JLabel NombreTitle;
     private javax.swing.JTextField NombreTxt;
     private javax.swing.JPanel PanelActualizar;
