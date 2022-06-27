@@ -5,8 +5,6 @@
 package Paneles;
 
 import Datos.GeneralConnection;
-import Entidades.Categoria;
-import Entidades.Producto;
 import Entidades.Proveedor;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -479,9 +477,11 @@ public class ModuloProveedor extends javax.swing.JFrame {
     
     private void llenarTableProveedor(){
         
+        Proveedor auxProv = new Proveedor();
+        
         limpiarTabla();
         
-        List<Proveedor> listaProveedores = Proveedor.listarProveedores();
+        List<Proveedor> listaProveedores = auxProv.listarEntidades();
         
         DefaultTableModel modelo = (DefaultTableModel) TablaProveedores.getModel();
         
@@ -517,11 +517,13 @@ public class ModuloProveedor extends javax.swing.JFrame {
     
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
 
+        Proveedor auxProv = provTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Proveedor.registrarProveedor(provTextFields())){
+            if(auxProv.registrarEntidad(auxProv)){
 
                 llenarTableProveedor();
                 limpiarFields();
@@ -535,11 +537,13 @@ public class ModuloProveedor extends javax.swing.JFrame {
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
 
+        Proveedor auxProv = provTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Proveedor.actualizarProveedor(provTextFields())){
+            if(auxProv.actualizarEntidad(auxProv)){
 
                 llenarTableProveedor();
                 limpiarFields();
@@ -553,11 +557,13 @@ public class ModuloProveedor extends javax.swing.JFrame {
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
 
+        Proveedor auxProv = provTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Proveedor.eliminarProveedor(provTextFields())){
+            if(auxProv.eliminarEntidad(auxProv)){
 
                 llenarTableProveedor();
                 limpiarFields();

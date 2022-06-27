@@ -459,11 +459,13 @@ public class ModuloUsuario extends javax.swing.JFrame {
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
 
+        Usuario aux = userTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Usuario.registrarUsuario(userTextFields())){
+            if(aux.registrarEntidad(aux)){
 
                 llenarTableUsuario();
                 limpiarFields();
@@ -478,11 +480,13 @@ public class ModuloUsuario extends javax.swing.JFrame {
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
 
+        Usuario aux = userTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Usuario.actualizarUsuario(userTextFields())){
+            if(aux.actualizarEntidad(aux)){
 
                 llenarTableUsuario();
                 limpiarFields();
@@ -497,11 +501,13 @@ public class ModuloUsuario extends javax.swing.JFrame {
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
 
+        Usuario aux = userTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Usuario.eliminarUsuario(userTextFields())){
+            if(aux.eliminarEntidad(aux)){
 
                 llenarTableUsuario();
                 limpiarFields();
@@ -521,10 +527,12 @@ public class ModuloUsuario extends javax.swing.JFrame {
 
     private void llenarTableUsuario(){
         
+        Usuario auxUser = new Usuario();
+        
         limpiarTabla();
         RolComBox.removeAllItems();
         
-        List<Usuario> listaUsuarios = Usuario.listarUsuarios();
+        List<Usuario> listaUsuarios = auxUser.listarEntidades();
         List<Rol> listaRoles = Rol.listarRoles();
         
         DefaultTableModel modelo = (DefaultTableModel) TablaUsuarios.getModel();

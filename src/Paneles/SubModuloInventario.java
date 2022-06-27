@@ -6,9 +6,6 @@ package Paneles;
 
 import Datos.GeneralConnection;
 import Entidades.Categoria;
-import Entidades.Producto;
-import Entidades.Rol;
-import Entidades.Usuario;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -372,9 +369,11 @@ public class SubModuloInventario extends javax.swing.JFrame {
     }
     private void llenarTableCategoria(){
         
+        Categoria auxCat = new Categoria();
+        
         limpiarTabla();
         
-        List<Categoria> listaCategorias = Categoria.listarCategorias();
+        List<Categoria> listaCategorias = auxCat.listarEntidades();
         
         DefaultTableModel modelo = (DefaultTableModel) TablaCategorias.getModel();
         
@@ -431,11 +430,13 @@ public class SubModuloInventario extends javax.swing.JFrame {
     
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
 
+        Categoria auxCat = catTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-                if(Categoria.registrarCategoria(catTextFields())){
+                if(auxCat.registrarEntidad(auxCat)){
 
                         llenarTableCategoria();
                         limpiarFields();
@@ -449,11 +450,13 @@ public class SubModuloInventario extends javax.swing.JFrame {
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
 
+        Categoria auxCat = catTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-                if(Categoria.actualizarCategoria(catTextFields())){
+                if(auxCat.actualizarEntidad(auxCat)){
 
                         llenarTableCategoria();
                         limpiarFields();
@@ -467,11 +470,13 @@ public class SubModuloInventario extends javax.swing.JFrame {
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
 
+        Categoria auxCat = catTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-                if(Categoria.eliminarCategoria(catTextFields())){
+                if(auxCat.eliminarEntidad(auxCat)){
 
                         llenarTableCategoria();
                         limpiarFields();

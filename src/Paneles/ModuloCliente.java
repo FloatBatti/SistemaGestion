@@ -5,8 +5,6 @@
 package Paneles;
 
 import Entidades.Cliente;
-import Entidades.Rol;
-import Entidades.Usuario;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

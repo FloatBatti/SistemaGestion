@@ -5,19 +5,17 @@
 package Entidades;
 
 import Datos.GeneralConnection;
-import static Entidades.Usuario.listarUsuarios;
+import Datos.ModifDatos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.swing.JOptionPane;
 
 
-public class Producto {
+public class Producto implements ModifDatos<Producto>{
     
     private int IdProducto;
     private Categoria CategoriaR;
@@ -126,7 +124,8 @@ public class Producto {
     
     //</editor-fold>
     
-    static public List<Producto> listarProductos(){
+    @Override
+    public List<Producto> listarEntidades(){
        
         PreparedStatement ps;
         ResultSet rs;
@@ -186,7 +185,8 @@ public class Producto {
         
     }
     
-    static public boolean registrarProducto(Producto prodTextFields){
+    @Override
+    public boolean registrarEntidad(Producto entidadTextFields){
        
         PreparedStatement ps;
         
@@ -196,28 +196,28 @@ public class Producto {
        
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
             
-            ps.setInt(1, prodTextFields.getCategoriaR().getIdCategoria());
-            ps.setInt(2, prodTextFields.getProveedorR().getIdProveedor());
-            ps.setString(3, prodTextFields.getCodigo());
-            ps.setString(4, prodTextFields.getNombre());
-            ps.setString(5, prodTextFields.getDescripcion());
-            ps.setDouble(6, prodTextFields.getPrecioVenta());
-            ps.setDouble(7, prodTextFields.getPrecioCompra());
-            ps.setBoolean(8, prodTextFields.isEstado());
+            ps.setInt(1, entidadTextFields.getCategoriaR().getIdCategoria());
+            ps.setInt(2, entidadTextFields.getProveedorR().getIdProveedor());
+            ps.setString(3, entidadTextFields.getCodigo());
+            ps.setString(4, entidadTextFields.getNombre());
+            ps.setString(5, entidadTextFields.getDescripcion());
+            ps.setDouble(6, entidadTextFields.getPrecioVenta());
+            ps.setDouble(7, entidadTextFields.getPrecioCompra());
+            ps.setBoolean(8, entidadTextFields.isEstado());
             
             
-            if(productoRepetido(prodTextFields)){
+            if(productoRepetido(entidadTextFields)){
                 
                 JOptionPane.showMessageDialog(null, "El codigo de producto ya existe. Limpie los campos");
                 return false;
             }
-            else if(revisionCampos(prodTextFields) && prodTextFields.getIdProducto() == 0){
+            else if(revisionCampos(entidadTextFields) && entidadTextFields.getIdProducto() == 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Registro Exitoso!");
                 return true;
             }
-            else if(!(revisionCampos(prodTextFields))){
+            else if(!(revisionCampos(entidadTextFields))){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
                 return false;
@@ -233,7 +233,8 @@ public class Producto {
        return false;
     }
     
-    static public boolean actualizarProducto(Producto prodTextFields){
+    @Override
+    public boolean actualizarEntidad(Producto entidadTextFields){
         
         PreparedStatement ps;
         
@@ -244,29 +245,29 @@ public class Producto {
          
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
-            ps.setInt(1, prodTextFields.getCategoriaR().getIdCategoria());
-            ps.setInt(2, prodTextFields.getProveedorR().getIdProveedor());
-            ps.setString(3, prodTextFields.getCodigo());
-            ps.setString(4, prodTextFields.getNombre());
-            ps.setString(5, prodTextFields.getDescripcion());
-            ps.setDouble(6, prodTextFields.getPrecioVenta());
-            ps.setDouble(7, prodTextFields.getPrecioCompra());
-            ps.setBoolean(8, prodTextFields.isEstado());
-            ps.setInt(9, prodTextFields.getIdProducto());
+            ps.setInt(1, entidadTextFields.getCategoriaR().getIdCategoria());
+            ps.setInt(2, entidadTextFields.getProveedorR().getIdProveedor());
+            ps.setString(3, entidadTextFields.getCodigo());
+            ps.setString(4, entidadTextFields.getNombre());
+            ps.setString(5, entidadTextFields.getDescripcion());
+            ps.setDouble(6, entidadTextFields.getPrecioVenta());
+            ps.setDouble(7, entidadTextFields.getPrecioCompra());
+            ps.setBoolean(8, entidadTextFields.isEstado());
+            ps.setInt(9, entidadTextFields.getIdProducto());
            
-            if(revisionCampos(prodTextFields) && prodTextFields.getIdProducto()> 0){
+            if(revisionCampos(entidadTextFields) && entidadTextFields.getIdProducto()> 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
                 return true;
                 
             }
-            else if(!(revisionCampos(prodTextFields)) && prodTextFields.getIdProducto()> 0){
+            else if(!(revisionCampos(entidadTextFields)) && entidadTextFields.getIdProducto()> 0){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente.");
                 return false;
             }
-            else if(prodTextFields.getIdProducto()== 0){
+            else if(entidadTextFields.getIdProducto()== 0){
                 
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un producto de la tabla.");
                 return false;
@@ -281,7 +282,8 @@ public class Producto {
         return false;
     }
         
-    static public boolean  eliminarProducto(Producto prodTextFields){
+    @Override
+    public boolean eliminarEntidad(Producto entidadTextFields){
         
         PreparedStatement ps;
         
@@ -291,17 +293,17 @@ public class Producto {
             
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
-            ps.setInt(1, prodTextFields.getIdProducto());
+            ps.setInt(1, entidadTextFields.getIdProducto());
         
            
-            if(prodTextFields.getIdProducto() > 0){
+            if(entidadTextFields.getIdProducto() > 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Producto Eliminado");
                 return true;
                 
             }
-            else if(prodTextFields.getIdProducto() == 0){
+            else if(entidadTextFields.getIdProducto() == 0){
                 
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un producto de la tabla.");
                 return false;
@@ -316,9 +318,9 @@ public class Producto {
         return false;
     }
     
-    static private boolean productoRepetido(Producto prodResgis){
+    private boolean productoRepetido(Producto prodResgis){
         
-        List<Producto> listaProductos = listarProductos();
+        List<Producto> listaProductos = this.listarEntidades();
         
         for (Producto aux : listaProductos){
             
@@ -331,7 +333,7 @@ public class Producto {
         return false;
     }
     
-    private static boolean revisionCampos(Producto prodTextFields){
+    private boolean revisionCampos(Producto prodTextFields){
         
         return !(prodTextFields.getNombre().equals("")  || prodTextFields.getCodigo().equals(""));
         
@@ -362,13 +364,9 @@ public class Producto {
         return true;
     }
 
-    
     @Override
     public String toString() {
         return "Producto{" + "IdProducto=" + IdProducto + ", CategoriaR=" + CategoriaR + ", Codigo=" + Codigo + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion + ", StockRifer=" + StockRifer + ", StockCamion=" + StockCamion + ", PrecioVenta=" + PrecioVenta + ", PrecioCompra=" + PrecioCompra + ", Estado=" + Estado + '}';
     }
-
-    
-    
     
 }

@@ -5,7 +5,7 @@
 package Entidades;
 
 import Datos.GeneralConnection;
-import static Entidades.Producto.listarProductos;
+import Datos.ModifDatos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 
 
-public class Categoria {
+public class Categoria implements ModifDatos<Categoria>{
     
     private int IdCategoria;
     private String Nombre;
@@ -25,6 +25,7 @@ public class Categoria {
     public Categoria() {
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getters Ans Setters">
     public int getIdCategoria() {
         return IdCategoria;
     }
@@ -56,8 +57,11 @@ public class Categoria {
     public void setEstado(boolean Estado) {
         this.Estado = Estado;
     }
+    
+    //</editor-fold>
 
-    static public List<Categoria> listarCategorias(){
+    @Override
+    public List<Categoria> listarEntidades(){
       
         PreparedStatement ps;
         ResultSet rs;
@@ -95,7 +99,8 @@ public class Categoria {
         
     }
     
-    static public boolean registrarCategoria(Categoria catTextFields){
+    @Override
+    public boolean registrarEntidad(Categoria entidadTextFields){
        
         PreparedStatement ps;
         
@@ -105,22 +110,22 @@ public class Categoria {
        
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
             
-            ps.setString(1, catTextFields.getNombre());
-            ps.setString(2, catTextFields.getDescripcion());
-            ps.setBoolean(3, catTextFields.isEstado());
+            ps.setString(1, entidadTextFields.getNombre());
+            ps.setString(2, entidadTextFields.getDescripcion());
+            ps.setBoolean(3, entidadTextFields.isEstado());
 
-            if(categoriaRepetida(catTextFields)){
+            if(categoriaRepetida(entidadTextFields)){
                 
                 JOptionPane.showMessageDialog(null, "La categoria ya existe. Limpie los campos");
                 return false;
             }
-            else if(revisionCampos(catTextFields) && catTextFields.getIdCategoria()== 0){
+            else if(revisionCampos(entidadTextFields) && entidadTextFields.getIdCategoria()== 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Registro Exitoso!");
                 return true;
             }
-            else if(!(revisionCampos(catTextFields))){
+            else if(!(revisionCampos(entidadTextFields))){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
                 return false;
@@ -136,7 +141,8 @@ public class Categoria {
        return false;
     }
     
-    static public boolean actualizarCategoria(Categoria catTextFields){
+    @Override
+    public boolean actualizarEntidad(Categoria entidadTextFields){
         
         PreparedStatement ps;
         
@@ -146,24 +152,24 @@ public class Categoria {
             
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
-            ps.setString(1, catTextFields.getNombre());
-            ps.setString(2, catTextFields.getDescripcion());
-            ps.setBoolean(3, catTextFields.isEstado());
-            ps.setInt(4, catTextFields.getIdCategoria());
+            ps.setString(1, entidadTextFields.getNombre());
+            ps.setString(2, entidadTextFields.getDescripcion());
+            ps.setBoolean(3, entidadTextFields.isEstado());
+            ps.setInt(4, entidadTextFields.getIdCategoria());
            
-            if(revisionCampos(catTextFields) && catTextFields.getIdCategoria() > 0){
+            if(revisionCampos(entidadTextFields) && entidadTextFields.getIdCategoria() > 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
                 return true;
                 
             }
-            else if(!(revisionCampos(catTextFields)) && catTextFields.getIdCategoria()> 0){
+            else if(!(revisionCampos(entidadTextFields)) && entidadTextFields.getIdCategoria()> 0){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente.");
                 return false;
             }
-            else if(catTextFields.getIdCategoria()== 0){
+            else if(entidadTextFields.getIdCategoria()== 0){
                 
                 JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria de la tabla.");
                 return false;
@@ -178,7 +184,8 @@ public class Categoria {
         return false;
     }
     
-    static public boolean  eliminarCategoria(Categoria catTextFields){
+    @Override
+    public boolean eliminarEntidad(Categoria entidadTextFields){
         
         PreparedStatement ps;
         
@@ -188,17 +195,17 @@ public class Categoria {
             
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
-            ps.setInt(1, catTextFields.getIdCategoria());
+            ps.setInt(1, entidadTextFields.getIdCategoria());
         
            
-            if(catTextFields.getIdCategoria()> 0){
+            if(entidadTextFields.getIdCategoria()> 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Categoria Eliminada");
                 return true;
                 
             }
-            else if(catTextFields.getIdCategoria() == 0){
+            else if(entidadTextFields.getIdCategoria() == 0){
                 
                 JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria de la tabla.");
                 return false;
@@ -213,9 +220,9 @@ public class Categoria {
         return false;
     }
     
-    static private boolean categoriaRepetida(Categoria catResgis){
+    private boolean categoriaRepetida(Categoria catResgis){
         
-        List<Categoria> listaCategorias = listarCategorias();
+        List<Categoria> listaCategorias = this.listarEntidades();
         
         for (Categoria aux : listaCategorias){
             
@@ -228,7 +235,7 @@ public class Categoria {
         return false;
     }
     
-    private static boolean revisionCampos(Categoria catTextFields){
+    private boolean revisionCampos(Categoria catTextFields){
         
         return !(catTextFields.getNombre().equals(""));
         
@@ -264,6 +271,6 @@ public class Categoria {
     public String toString() {
         return "Categoria{" + "IdCategoria=" + IdCategoria + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion + ", Estado=" + Estado + '}';
     }
-    
-    
+
+   
 }

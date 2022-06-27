@@ -5,7 +5,7 @@
 package Entidades;
 
 import Datos.GeneralConnection;
-import static Entidades.Usuario.listarUsuarios;
+import Datos.ModifDatos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 
 
-public class Proveedor {
+public class Proveedor implements ModifDatos<Proveedor>{
     
     private int IdProveedor;
     private String Nombre ="";
@@ -98,7 +98,8 @@ public class Proveedor {
     
       //</editor-fold>
     
-    static public List<Proveedor> listarProveedores(){
+    @Override
+    public List<Proveedor> listarEntidades(){
        
         PreparedStatement ps;
         ResultSet rs;
@@ -142,7 +143,8 @@ public class Proveedor {
         
     }
     
-    static public boolean  registrarProveedor(Proveedor provTextFields){
+    @Override
+    public boolean registrarEntidad(Proveedor entidadTextFields){
        
         PreparedStatement ps;
         
@@ -152,26 +154,26 @@ public class Proveedor {
        
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
             
-            ps.setString(1, provTextFields.getNombre());
-            ps.setString(2, provTextFields.getRazonSocial());
-            ps.setString(3, provTextFields.getCorreo());
-            ps.setString(4, provTextFields.getTelefono());
-            ps.setString(5, provTextFields.getDescripcion());
-            ps.setBoolean(6, provTextFields.isEstado());
+            ps.setString(1, entidadTextFields.getNombre());
+            ps.setString(2, entidadTextFields.getRazonSocial());
+            ps.setString(3, entidadTextFields.getCorreo());
+            ps.setString(4, entidadTextFields.getTelefono());
+            ps.setString(5, entidadTextFields.getDescripcion());
+            ps.setBoolean(6, entidadTextFields.isEstado());
            
             
-            if(proveedorRepetido(provTextFields)){
+            if(proveedorRepetido(entidadTextFields)){
                 
                 JOptionPane.showMessageDialog(null, "El proveedor ya existe. Limpie los campos");
                 return false;
             }
-            else if(revisionCampos(provTextFields) && provTextFields.getIdProveedor() == 0){
+            else if(revisionCampos(entidadTextFields) && entidadTextFields.getIdProveedor() == 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Registro Exitoso!");
                 return true;
             }
-            else if(!(revisionCampos(provTextFields))){
+            else if(!(revisionCampos(entidadTextFields))){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente");
                 return false;
@@ -187,7 +189,8 @@ public class Proveedor {
        return false;
     }
     
-    static public boolean actualizarProveedor(Proveedor provTextFields){
+    @Override
+    public boolean actualizarEntidad(Proveedor entidadTextFields){
         
         PreparedStatement ps;
         
@@ -197,28 +200,28 @@ public class Proveedor {
             
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
-            ps.setString(1, provTextFields.getNombre());
-            ps.setString(2, provTextFields.getRazonSocial());
-            ps.setString(3, provTextFields.getCorreo());
-            ps.setString(4, provTextFields.getTelefono());
-            ps.setString(5, provTextFields.getDescripcion());
-            ps.setBoolean(6, provTextFields.isEstado());
-            ps.setInt(7, provTextFields.getIdProveedor());
+            ps.setString(1, entidadTextFields.getNombre());
+            ps.setString(2, entidadTextFields.getRazonSocial());
+            ps.setString(3, entidadTextFields.getCorreo());
+            ps.setString(4, entidadTextFields.getTelefono());
+            ps.setString(5, entidadTextFields.getDescripcion());
+            ps.setBoolean(6, entidadTextFields.isEstado());
+            ps.setInt(7, entidadTextFields.getIdProveedor());
 
            
-            if(revisionCampos(provTextFields) && provTextFields.getIdProveedor()> 0){
+            if(revisionCampos(entidadTextFields) && entidadTextFields.getIdProveedor()> 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
                 return true;
                 
             }
-            else if(!(revisionCampos(provTextFields)) && provTextFields.getIdProveedor()> 0){
+            else if(!(revisionCampos(entidadTextFields)) && entidadTextFields.getIdProveedor()> 0){
                 
                 JOptionPane.showMessageDialog(null, "Faltan completar campos, intente nuevamente.");
                 return false;
             }
-            else if(provTextFields.getIdProveedor()== 0){
+            else if(entidadTextFields.getIdProveedor()== 0){
                 
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un proveedor de la tabla.");
                 return false;
@@ -233,7 +236,8 @@ public class Proveedor {
         return false;
     }
     
-    static public boolean  eliminarProveedor(Proveedor provTextFields){
+    @Override
+    public boolean eliminarEntidad(Proveedor entidadTextFields) {
         
         PreparedStatement ps;
         
@@ -243,17 +247,17 @@ public class Proveedor {
             
             ps = GeneralConnection.getGeneralConnection().prepareStatement(query);
                        
-            ps.setInt(1, provTextFields.getIdProveedor());
+            ps.setInt(1, entidadTextFields.getIdProveedor());
         
            
-            if(provTextFields.getIdProveedor() > 0){
+            if(entidadTextFields.getIdProveedor() > 0){
                 
                 ps.execute();
                 JOptionPane.showMessageDialog(null, "Usuario Eliminado");
                 return true;
                 
             }
-            else if(provTextFields.getIdProveedor() == 0){
+            else if(entidadTextFields.getIdProveedor() == 0){
                 
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario de la tabla.");
                 return false;
@@ -267,17 +271,16 @@ public class Proveedor {
         
         return false;
     }
-    
-    
-    private static boolean revisionCampos(Proveedor provTextFields){
+       
+    private boolean revisionCampos(Proveedor provTextFields){
         
         return !(provTextFields.getTelefono().equals("") || provTextFields.getRazonSocial().equals(""));
         
     }
       
-    static private boolean proveedorRepetido(Proveedor provRegis){
+    private boolean proveedorRepetido(Proveedor provRegis){
         
-        List<Proveedor> listaProveedores = listarProveedores();
+        List<Proveedor> listaProveedores = this.listarEntidades();
         
         for (Proveedor aux : listaProveedores){
             
@@ -314,5 +317,5 @@ public class Proveedor {
         }
         return true;
     }
-    
+
 }

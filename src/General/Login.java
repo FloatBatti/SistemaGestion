@@ -350,9 +350,10 @@ public class Login extends javax.swing.JFrame implements Runnable{
 
     static public Usuario loginUser(){
         
-        List<Usuario> listaUsuarios = Usuario.listarUsuarios();
+        Usuario actualUser = new Usuario();
+        
+        List<Usuario> listaUsuarios = actualUser.listarEntidades();
           
-        Usuario actualUser = null;
         
         for(Usuario aux : listaUsuarios){
             

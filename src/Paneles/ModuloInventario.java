@@ -8,8 +8,6 @@ import Datos.GeneralConnection;
 import Entidades.Categoria;
 import Entidades.Producto;
 import Entidades.Proveedor;
-import Entidades.Rol;
-import Entidades.Usuario;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -549,13 +547,16 @@ public class ModuloInventario extends javax.swing.JFrame {
     
     private void llenarTableProducto(){
         
+        Proveedor auxProv = new Proveedor();
+        Producto auxProd = new Producto();
+        Categoria auxCat = new Categoria();
         limpiarTabla();
         CategoriaComBox.removeAllItems();
         ProveedorComboBox.removeAllItems();
         
-        List<Producto> listaProductos = Producto.listarProductos();
-        List<Categoria> listaCategorias = Categoria.listarCategorias();
-        List<Proveedor> listaProveedores = Proveedor.listarProveedores();
+        List<Producto> listaProductos = auxProd.listarEntidades();
+        List<Categoria> listaCategorias = auxCat.listarEntidades();
+        List<Proveedor> listaProveedores = auxProv.listarEntidades();
         
         DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
         
@@ -596,8 +597,8 @@ public class ModuloInventario extends javax.swing.JFrame {
         Producto auxProd = new Producto();
         Categoria auxCat = new Categoria();
         Proveedor auxProv = new Proveedor();
-        List<Categoria> listaCategorias = Categoria.listarCategorias();
-        List<Proveedor> listaProveedores = Proveedor.listarProveedores();
+        List<Categoria> listaCategorias = auxCat.listarEntidades();
+        List<Proveedor> listaProveedores = auxProv.listarEntidades();
         
         if (!(IdProductTxt.getText().equals(""))){
            
@@ -675,11 +676,13 @@ public class ModuloInventario extends javax.swing.JFrame {
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
 
+        Producto auxProd = prodTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Producto.registrarProducto(prodTextFields())){
+            if(auxProd.registrarEntidad(auxProd)){
 
                 llenarTableProducto();
                 limpiarFields();
@@ -693,11 +696,13 @@ public class ModuloInventario extends javax.swing.JFrame {
 
     private void BotonActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonActualizarMouseClicked
 
+        Producto auxProd = prodTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Producto.actualizarProducto(prodTextFields())){
+            if(auxProd.actualizarEntidad(auxProd)){
 
                 llenarTableProducto();
                 limpiarFields();
@@ -711,11 +716,13 @@ public class ModuloInventario extends javax.swing.JFrame {
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
 
+        Producto auxProd = prodTextFields();
+        
         GeneralConnection.firewallConnection();
 
         if(CheckConfirmar.isSelected()){
 
-            if(Producto.eliminarProducto(prodTextFields())){
+            if(auxProd.eliminarEntidad(auxProd)){
 
                 llenarTableProducto();
                 limpiarFields();
